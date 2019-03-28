@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidBase</string>
+    <string name="demo_activity">DemoActivity</string>
+    <string name="main">主页</string>
+    <string name="user_list">用户列表</string>
+    <string name="add_user">添加用户</string>
+    <string name="add">添加</string>
+</resources>
