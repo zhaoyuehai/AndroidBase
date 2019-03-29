@@ -1,13 +1,13 @@
 package com.yuehai.android.presenter;
 
+import android.util.Base64;
+
 import com.yuehai.android.RxUtils;
-import com.yuehai.android.contract.UserListContract;
+import com.yuehai.android.contract.RegisterContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
+import com.yuehai.android.net.request.RegisterUserBen;
 import com.yuehai.android.vo.ResultBean;
-import com.yuehai.android.vo.UserBean;
-
-import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import library.base.BasePresenter;
@@ -15,41 +15,42 @@ import library.base.BasePresenter;
 /**
  * Created by zhaoyuehai 2019/3/22
  */
-public class UserListPresenter extends BasePresenter<UserListContract.View> implements UserListContract.Presenter {
+public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {
 
-    public UserListPresenter(UserListContract.View view) {
+    public RegisterPresenter(RegisterContract.View view) {
         super(view);
     }
 
-    private int pageNum = 1;
-
     @Override
-    protected void onCreate() {
-        super.onCreate();
-        loadData(1, 10);
-    }
-
-    private void loadData(int pageNum, int pageSize) {
+    public void onRegister(String userName, String password) {
         ApiUtil.getInstance()
                 .getApiService()
-                .users(pageNum, pageSize)
+                .register(new RegisterUserBen(userName, Base64.encodeToString(password.getBytes(), Base64.NO_WRAP)))
                 .compose(RxUtils.io_main())
-                .subscribe(new ResultObserver<ResultBean<List<UserBean>>>(this) {
+                .subscribe(new ResultObserver<ResultBean<String>>(this, true) {
+
                     @Override
                     public void onSubscribe(Disposable d) {
                         if (isViewAttached()) getView().showLoading();
                     }
 
                     @Override
-                    public void onNext(ResultBean<List<UserBean>> listResultBean) {
-                        if (isViewAttached()) getView().showData(listResultBean);
+                    public void onNext(ResultBean<String> result) {
+                        if (isViewAttached()) {
+                            if (result != null && !result.getData().equals("")) {
+                                getView().showToast("注册成功——Id：" + result.getData());
+                                getView().finish();
+                            } else {
+                                getView().showToast("注册失败");
+                            }
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (isViewAttached()) {
-                            getView().showData(null);
                             getView().dismissLoading();
+                            getView().showToast("注册失败");
                         }
                     }
 
@@ -59,4 +60,5 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                     }
                 });
     }
+
 }

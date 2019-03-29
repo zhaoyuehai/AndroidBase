@@ -1,11 +1,12 @@
 package library.base;
 
 import androidx.annotation.StringRes;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * Created by zhaoyuehai 2019/3/15
  */
-public interface IBaseView {
+public interface IBaseView extends LifecycleOwner {
     /**
      * 显示加载弹框
      */

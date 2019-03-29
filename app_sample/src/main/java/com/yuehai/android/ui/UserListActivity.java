@@ -6,11 +6,13 @@ import com.yuehai.android.R;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.presenter.UserListPresenter;
 import com.yuehai.android.ui.adapter.UserListViewHolder;
+import com.yuehai.android.vo.ResultBean;
 import com.yuehai.android.vo.UserBean;
-import com.yuehai.android.vo.UserListBean;
 import com.yuehai.android.widget.recyclerhelper.CommonRecycleAdapter;
 import com.yuehai.android.widget.recyclerhelper.BaseViewHolder;
 import com.yuehai.android.widget.recyclerhelper.MyDividerItemDecoration;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,7 +60,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     }
 
     @Override
-    public void showData(UserListBean result) {
+    public void showData(ResultBean<List<UserBean>> result) {
         if (result != null && result.getData() != null)
             adapter.addAll(result.getData());
     }

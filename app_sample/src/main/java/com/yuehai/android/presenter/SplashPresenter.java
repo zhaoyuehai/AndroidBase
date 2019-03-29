@@ -21,13 +21,16 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
     @Override
     protected void onCreate() {
         super.onCreate();
-        add(Observable
-                .timer(2, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    if (isViewAttached()) {
-                        getView().goMain();
-                    }
-                }));
+        if(isViewAttached()){
+            getView().showIpDialog();
+        }
+//        add(Observable
+//                .timer(2, TimeUnit.SECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aLong -> {
+//                    if (isViewAttached()) {
+//                        getView().goMain();
+//                    }
+//                }));
     }
 }

@@ -23,7 +23,7 @@
         android:layout_gravity="right"
         android:gravity="center"
         android:paddingRight="10dp"
-        android:text="@string/add"
+        android:text="@string/register"
         android:textColor="@color/text_blue"
         android:textSize="14sp" />
 </androidx.appcompat.widget.Toolbar>

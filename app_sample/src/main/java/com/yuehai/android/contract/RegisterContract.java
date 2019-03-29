@@ -8,12 +8,14 @@ import library.base.IBaseView;
 /**
  * Created by zhaoyuehai 2019/3/22
  */
-public interface AddUserContract {
+public interface RegisterContract {
     interface View extends IBaseView {
 
+        void finish();
     }
 
     interface Presenter extends IBasePresenter {
-        void onAddUser(UserBean userBean);
+
+        void onRegister(String userName, String password);
     }
 }

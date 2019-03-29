@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.test_btn1:
-                startActivity(new Intent(MainActivity.this, UserListActivity.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                 break;
             case R.id.test_btn2:
                 startActivity(new Intent(MainActivity.this, UserListActivity.class));

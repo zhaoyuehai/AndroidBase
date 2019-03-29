@@ -35,7 +35,7 @@
             android:name=".ui.UserListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.AddUserActivity"
+            android:name=".ui.RegisterActivity"
             android:screenOrientation="portrait" />
 
     </application>

@@ -9,6 +9,12 @@ import library.base.IBaseView;
 public interface SplashContract {
     interface View extends IBaseView {
         void goMain();
+
+        /**
+         * 输入IP地址
+         */
+        void showIpDialog();
+
     }
 
     interface Presenter extends IBasePresenter {
