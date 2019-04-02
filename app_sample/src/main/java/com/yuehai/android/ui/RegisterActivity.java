@@ -6,13 +6,13 @@ import android.widget.EditText;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.RegisterContract;
 import com.yuehai.android.presenter.RegisterPresenter;
-import com.yuehai.android.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import library.base.BaseMvpActivity;
 
 /**
+ * 注册 V
  * Created by zhaoyuehai 2019/3/22
  */
 public class RegisterActivity extends BaseMvpActivity<RegisterContract.Presenter> implements RegisterContract.View {

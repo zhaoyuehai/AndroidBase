@@ -1,8 +1,8 @@
 package com.yuehai.android.net;
 
 import com.yuehai.android.net.request.RegisterUserBen;
-import com.yuehai.android.vo.ResultBean;
-import com.yuehai.android.vo.UserBean;
+import com.yuehai.android.net.response.ResultBean;
+import com.yuehai.android.net.response.UserBean;
 
 import java.util.List;
 

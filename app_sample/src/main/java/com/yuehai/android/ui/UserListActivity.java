@@ -5,10 +5,10 @@ import android.view.ViewGroup;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.UserListContract;
+import com.yuehai.android.net.response.ResultBean;
+import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.presenter.UserListPresenter;
 import com.yuehai.android.ui.adapter.UserListViewHolder;
-import com.yuehai.android.vo.ResultBean;
-import com.yuehai.android.vo.UserBean;
 import com.yuehai.android.widget.TipDialogFragment;
 import com.yuehai.android.widget.recyclerhelper.BaseViewHolder;
 import com.yuehai.android.widget.recyclerhelper.CommonRecycleAdapter;
@@ -24,6 +24,7 @@ import butterknife.BindView;
 import library.base.BaseMvpActivity;
 
 /**
+ * 用户列表 V
  * Created by zhaoyuehai 2019/3/22
  */
 public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter> implements UserListContract.View {
@@ -58,7 +59,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
             @NonNull
             @Override
             public BaseViewHolder<UserBean> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new UserListViewHolder(parent,UserListActivity.this::onDeleteClick);
+                return new UserListViewHolder(parent, UserListActivity.this::onDeleteClick);
             }
         };
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

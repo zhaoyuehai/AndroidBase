@@ -2,7 +2,9 @@ package com.yuehai.android.ui;
 
 import android.content.Intent;
 
+import com.yuehai.android.BuildConfig;
 import com.yuehai.android.Contacts;
+import com.yuehai.android.MyApplication;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.SplashContract;
 import com.yuehai.android.presenter.SplashPresenter;
@@ -63,6 +65,8 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.Presenter> im
 
     @Override
     public void onCancel() {
-        finish();
+        // TODO: 2019/4/2 临时处理，服务没启动也可用进应用
+        MyApplication.BASE_URL = BuildConfig.BASE_URL;
+        goMain();
     }
 }

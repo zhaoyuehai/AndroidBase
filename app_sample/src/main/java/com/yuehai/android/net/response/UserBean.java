@@ -1,4 +1,4 @@
-package com.yuehai.android.vo;
+package com.yuehai.android.net.response;
 
 /**
  * Created by zhaoyuehai 2019/3/28

@@ -5,8 +5,8 @@ import com.yuehai.android.RxUtils;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
-import com.yuehai.android.vo.ResultBean;
-import com.yuehai.android.vo.UserBean;
+import com.yuehai.android.net.response.ResultBean;
+import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.widget.TipDialogFragment;
 
 import java.util.List;

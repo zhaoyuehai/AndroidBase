@@ -7,12 +7,13 @@ import com.yuehai.android.contract.RegisterContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
 import com.yuehai.android.net.request.RegisterUserBen;
-import com.yuehai.android.vo.ResultBean;
+import com.yuehai.android.net.response.ResultBean;
 
 import io.reactivex.disposables.Disposable;
 import library.base.BasePresenter;
 
 /**
+ * 注册 P
  * Created by zhaoyuehai 2019/3/22
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {

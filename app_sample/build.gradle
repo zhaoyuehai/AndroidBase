@@ -20,11 +20,11 @@ android {
     productFlavors {
         environmentDev {
             dimension 'environment'
-//            buildConfigField 'String', 'BASE_URL', '"http://10.10.33.91"'
+            buildConfigField 'String', 'BASE_URL', '"http://10.10.33.131"'
         }
         environmentProd {
             dimension 'environment'
-//            buildConfigField 'String', 'BASE_URL', '"https://xxxx"'
+            buildConfigField 'String', 'BASE_URL', '"https://xxxx"'
         }
         companyA {
             dimension 'company'
@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-4'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }

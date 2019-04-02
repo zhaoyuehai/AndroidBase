@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.yuehai.android.R;
-import com.yuehai.android.vo.UserBean;
+import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.widget.recyclerhelper.BaseViewHolder;
 
 import butterknife.BindView;
