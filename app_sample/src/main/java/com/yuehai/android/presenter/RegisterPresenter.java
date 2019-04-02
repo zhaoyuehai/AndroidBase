@@ -2,7 +2,7 @@ package com.yuehai.android.presenter;
 
 import android.util.Base64;
 
-import com.yuehai.android.RxUtils;
+import com.yuehai.android.util.RxUtil;
 import com.yuehai.android.contract.RegisterContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
@@ -27,7 +27,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
         ApiUtil.getInstance()
                 .getApiService()
                 .register(new RegisterUserBen(userName, Base64.encodeToString(password.getBytes(), Base64.NO_WRAP)))
-                .compose(RxUtils.io_main())
+                .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<String>>(this, true) {
 
                     @Override

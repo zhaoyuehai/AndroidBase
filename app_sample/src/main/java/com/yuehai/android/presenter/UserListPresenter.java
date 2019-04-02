@@ -1,7 +1,7 @@
 package com.yuehai.android.presenter;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.yuehai.android.RxUtils;
+import com.yuehai.android.util.RxUtil;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
@@ -50,7 +50,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
         ApiUtil.getInstance()
                 .getApiService()
                 .getUsers(pageNum, 10)
-                .compose(RxUtils.io_main())
+                .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<List<UserBean>>>(this) {
 
                     @Override
@@ -98,7 +98,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
         ApiUtil.getInstance()
                 .getApiService()
                 .deleteUser(userBean.getId())
-                .compose(RxUtils.io_main())
+                .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<String>>(this) {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -1,10 +1,8 @@
-package com.yuehai.android;
+package com.yuehai.android.util;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-
-import com.yuehai.android.util.LogUtil;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

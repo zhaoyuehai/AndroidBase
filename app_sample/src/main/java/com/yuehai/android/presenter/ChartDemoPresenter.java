@@ -3,7 +3,7 @@ package com.yuehai.android.presenter;
 import android.widget.RadioGroup;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.yuehai.android.DemoModel;
+import com.yuehai.android.model.DemoModel;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.ChartDemoContract;
 

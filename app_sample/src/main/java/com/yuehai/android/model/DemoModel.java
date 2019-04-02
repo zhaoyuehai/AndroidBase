@@ -1,4 +1,4 @@
-package com.yuehai.android;
+package com.yuehai.android.model;
 
 import com.yuehai.android.contract.ChartDemoContract;
 import com.yuehai.android.net.response.DemoData;
