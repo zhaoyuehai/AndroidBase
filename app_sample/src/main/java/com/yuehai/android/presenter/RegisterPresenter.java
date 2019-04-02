@@ -37,8 +37,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                     @Override
                     public void onNext(ResultBean<String> result) {
                         if (isViewAttached()) {
-                            if (result != null && !result.getData().equals("")) {
-                                getView().showToast("注册成功——Id：" + result.getData());
+                            if (result != null && result.getData().equals("1")) {
+                                getView().showToast("注册成功");
                                 getView().finish();
                             } else {
                                 getView().showToast("注册失败");

@@ -1,11 +1,10 @@
 package com.yuehai.android.contract;
 
-import com.yuehai.android.vo.UserBean;
-
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
 /**
+ * 用户注册
  * Created by zhaoyuehai 2019/3/22
  */
 public interface RegisterContract {

@@ -1,6 +1,7 @@
 package com.yuehai.android.ui.adapter;
 
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.yuehai.android.R;
@@ -19,9 +20,13 @@ public class UserListViewHolder extends BaseViewHolder<UserBean> {
     TextView emailTV;
     @BindView(R.id.phone_tv)
     TextView phoneTV;
+    @BindView(R.id.delete_btn)
+    Button deleteBTN;
+    private OnDeleteClickListener mOnDeleteClickListener;
 
-    public UserListViewHolder(ViewGroup parent) {
+    public UserListViewHolder(ViewGroup parent, OnDeleteClickListener onDeleteClickListener) {
         super(parent, R.layout.user_list_item);
+        this.mOnDeleteClickListener = onDeleteClickListener;
     }
 
     @Override
@@ -30,5 +35,10 @@ public class UserListViewHolder extends BaseViewHolder<UserBean> {
         nameTV.setText(String.format("姓名:%s", userBean.getUserName()));
         phoneTV.setText(String.format("手机:%s", userBean.getPhone()));
         emailTV.setText(String.format("邮箱:%s", userBean.getEmail()));
+        deleteBTN.setOnClickListener(v -> mOnDeleteClickListener.onDeleteClick(getAdapterPosition()));
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(int position);
     }
 }

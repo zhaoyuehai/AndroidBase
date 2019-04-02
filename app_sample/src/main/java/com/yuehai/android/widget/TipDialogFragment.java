@@ -3,7 +3,6 @@ package com.yuehai.android.widget;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.yuehai.android.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
@@ -25,31 +23,19 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 单个输入框的DialogFragment
+ * 提示信息DialogFragment
  * Created by zhaoyuehai 2019/3/29
  */
-public class InputDialogFragment extends DialogFragment {
-
-    public static InputDialogFragment newInstance(String title, @Nullable String content) {
-        InputDialogFragment fragment = new InputDialogFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        if (content != null)
-            bundle.putString("content", content);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+public class TipDialogFragment extends DialogFragment {
 
     public interface OnClickListener {
         /**
-         * 会提前dismiss
-         *
-         * @param content 输入内容
+         * 之后会dismiss
          */
-        void onConfirm(String content);
+        void onConfirm();
 
         /**
-         * 会提前dismiss
+         * 之后会dismiss
          */
         void onCancel();
     }
@@ -59,16 +45,14 @@ public class InputDialogFragment extends DialogFragment {
     }
 
     private Unbinder unbinder;
-    @BindView(R.id.input_tv)
-    AppCompatTextView inputTV;
-    @BindView(R.id.input_et)
-    AppCompatEditText inputET;
+    @BindView(R.id.tip_tv)
+    AppCompatTextView tipTV;
     private OnClickListener mOnClickListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.input_layout, container, false);
+        View view = inflater.inflate(R.layout.tip_layout, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -77,15 +61,22 @@ public class InputDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
-            String title = getArguments().getString("title");
-            if (title != null)
-                inputTV.setText(title);
-            String content = getArguments().getString("content");
-            if (content != null) {
-                inputET.setText(content);
-                inputET.setSelection(content.length());
-            }
+            String msg = getArguments().getString("msg");
+            if (msg != null)
+                tipTV.setText(msg);
         }
+    }
+
+    private String msg;
+
+    public void setMessage(String msg) {
+        this.msg = msg;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (msg != null) tipTV.setText(msg);
     }
 
     @Override
@@ -112,15 +103,12 @@ public class InputDialogFragment extends DialogFragment {
         if (mOnClickListener == null) return;
         switch (view.getId()) {
             case R.id.confirm_btn:
-                Editable text = inputET.getText();
-                if (text != null && !text.toString().equals("")) {
-                    dismiss();
-                    mOnClickListener.onConfirm(text.toString());
-                }
+                mOnClickListener.onConfirm();
+                dismiss();
                 break;
             case R.id.cancel_btn:
-                dismiss();
                 mOnClickListener.onCancel();
+                dismiss();
                 break;
         }
     }

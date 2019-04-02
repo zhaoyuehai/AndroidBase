@@ -12,7 +12,7 @@ public class UserBean {
     private String nickName;
     private String phone;
     private int status;
-    private int id;
+    private long id;
 
     public String getAvatar() {
         return avatar;
@@ -70,11 +70,11 @@ public class UserBean {
         this.status = status;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
