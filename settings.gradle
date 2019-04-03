@@ -1,1 +1,1 @@
-include ':app_sample',":library_base"
+include ':app_sample',":library_base", ':library_chart'

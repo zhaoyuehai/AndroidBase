@@ -7,9 +7,10 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:background="#C6DDE4F4"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <RadioButton
             android:id="@+id/chart_demo_rb1"
@@ -18,7 +19,8 @@
             android:layout_weight="1"
             android:checked="true"
             android:gravity="center_vertical"
-            android:text="月数据" />
+            android:text="月数据"
+            android:textColor="@color/text_blue" />
 
         <RadioButton
             android:id="@+id/chart_demo_rb2"
@@ -26,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="年数据" />
+            android:text="年数据"
+            android:textColor="@color/text_blue" />
     </RadioGroup>
 
     <ScrollView
@@ -46,9 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatCheckBox
@@ -77,17 +78,59 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/gray" />
 
-            <TextView
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="折线图"
-                android:textColor="@color/text_black"
-                android:textSize="16sp" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <lecho.lib.hellocharts.view.LineChartView
+                <RadioButton
+                    android:id="@+id/chart_demo_rb3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:gravity="center_vertical"
+                    android:text="折线图"
+                    android:textColor="@color/text_black" />
+
+                <RadioButton
+                    android:id="@+id/chart_demo_rb4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="曲线图"
+                    android:textColor="@color/text_black" />
+
+                <RadioButton
+                    android:id="@+id/chart_demo_rb5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="方线图"
+                    android:textColor="@color/text_black" />
+            </RadioGroup>
+
+            <Switch
+                android:id="@+id/chart_demo_sw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="Y值为0时，是否连续绘制"
+                android:textColor="@color/text_black" />
+
+            <library.widget.chart.view.LineChartView
                 android:id="@+id/chart_demo_line_chart"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

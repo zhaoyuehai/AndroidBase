@@ -10,7 +10,7 @@ import com.yuehai.android.model.ChartDemoModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.PointValue;
+import library.widget.chart.model.PointValue;
 import library.base.BasePresenter;
 
 /**
@@ -50,12 +50,34 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
                     loadData();
                 }
                 break;
+            case R.id.chart_demo_rb3:
+                if (isChecked) {
+                    if (isViewAttached()) getView().setLineChartType(0);
+                    loadData();
+                }
+                break;
+            case R.id.chart_demo_rb4:
+                if (isChecked) {
+                    if (isViewAttached()) getView().setLineChartType(1);
+                    loadData();
+                }
+                break;
+            case R.id.chart_demo_rb5:
+                if (isChecked) {
+                    if (isViewAttached()) getView().setLineChartType(2);
+                    loadData();
+                }
+                break;
             case R.id.chart_demo_cb1:
                 if (isViewAttached()) getView().setBarDataEnable(isChecked);
                 loadData();
                 break;
             case R.id.chart_demo_cb2:
                 if (isViewAttached()) getView().setLineDataEnable(isChecked);
+                loadData();
+                break;
+            case R.id.chart_demo_sw:
+                if (isViewAttached()) getView().setLineChartContinuous(isChecked);
                 loadData();
                 break;
         }
@@ -84,8 +106,8 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
                 }
             }, yData);
             List<PointValue> pointValues = new ArrayList<>();
-            for (int x=0;x<yData.size();x++) {
-            pointValues.add(new PointValue(x, yData.get(x)));
+            for (int x = 0; x < yData.size(); x++) {
+                pointValues.add(new PointValue(x, yData.get(x)));
             }
             getView().setLineChartData(pointValues);
         }

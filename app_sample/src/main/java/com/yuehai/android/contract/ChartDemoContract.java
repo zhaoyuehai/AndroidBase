@@ -7,7 +7,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import lecho.lib.hellocharts.model.PointValue;
+import library.widget.chart.model.PointValue;
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
@@ -18,23 +18,36 @@ import library.base.IBaseView;
 public interface ChartDemoContract {
     interface View extends IBaseView {
         /**
-         * 显示图表数据
+         * 显示第一个图表数据
          */
         void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData);
 
         /**
-         * 显示折线图数据
-         */
-        void setLineChartData(List<PointValue> yData);
-        /**
-         * 是否显示柱状图
+         * 第一个图表是否显示柱状图
          */
         void setBarDataEnable(boolean enable);
 
         /**
-         * 是否显示折线图
+         * 第一个图表是否显示折线图
          */
         void setLineDataEnable(boolean enable);
+
+        /**
+         * 显示第二个图表数据
+         */
+        void setLineChartData(List<PointValue> yData);
+
+        /**
+         * 第二个图表类型
+         *
+         * @param type //0:折线图 1：曲线图 2：方线图
+         */
+        void setLineChartType(int type);
+
+        /**
+         * Y值为0是否继续绘制
+         */
+        void setLineChartContinuous(boolean continuous);
     }
 
     interface Presenter extends IBasePresenter, CompoundButton.OnCheckedChangeListener {

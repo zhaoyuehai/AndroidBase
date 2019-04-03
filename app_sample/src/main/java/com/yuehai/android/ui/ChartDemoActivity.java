@@ -3,6 +3,7 @@ package com.yuehai.android.ui;
 import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Switch;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.Legend;
@@ -25,14 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.model.Viewport;
-import lecho.lib.hellocharts.view.LineChartView;
+import library.widget.chart.model.Axis;
+import library.widget.chart.model.AxisValue;
+import library.widget.chart.model.Line;
+import library.widget.chart.model.LineChartData;
+import library.widget.chart.model.PointValue;
+import library.widget.chart.model.ValueShape;
+import library.widget.chart.model.Viewport;
+import library.widget.chart.view.LineChartView;
 import library.base.BaseMvpActivity;
 
 /**
@@ -49,12 +50,22 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     RadioButton radioButton1;
     @BindView(R.id.chart_demo_rb2)
     RadioButton radioButton2;
+    @BindView(R.id.chart_demo_rb3)
+    RadioButton radioButton3;
+    @BindView(R.id.chart_demo_rb4)
+    RadioButton radioButton4;
+    @BindView(R.id.chart_demo_rb5)
+    RadioButton radioButton5;
     @BindView(R.id.chart_demo_cb1)
     CheckBox checkBox1;
     @BindView(R.id.chart_demo_cb2)
     CheckBox checkBox2;
+    @BindView(R.id.chart_demo_sw)
+    Switch mSwitch;
     private boolean mBarDataEnable = true;
     private boolean mLineDataEnable = false;
+    private int mLineChartTpye = 0;//0:折线图 1：曲线图 2：方线图
+    private boolean mLineChartContinuous = true;//Y值为0是否继续绘制
 
     @Override
     protected int getInnerViewId() {
@@ -77,8 +88,12 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         initLineChart();
         radioButton1.setOnCheckedChangeListener(presenter);
         radioButton2.setOnCheckedChangeListener(presenter);
+        radioButton3.setOnCheckedChangeListener(presenter);
+        radioButton4.setOnCheckedChangeListener(presenter);
+        radioButton5.setOnCheckedChangeListener(presenter);
         checkBox1.setOnCheckedChangeListener(presenter);
         checkBox2.setOnCheckedChangeListener(presenter);
+        mSwitch.setOnCheckedChangeListener(presenter);
     }
 
     /**
@@ -141,6 +156,16 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     }
 
     @Override
+    public void setLineChartType(int type) {
+        mLineChartTpye = type;
+    }
+
+    @Override
+    public void setLineChartContinuous(boolean continuous) {
+        mLineChartContinuous = continuous;
+    }
+
+    @Override
     public void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData) {
         mCombinedChart.clear();//先清空
         mCombinedChart.notifyDataSetChanged();
@@ -175,10 +200,21 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     @Override
     public void setLineChartData(List<PointValue> pointValues) {
         Line line = new Line(pointValues).setColor(Color.parseColor("#FFCD41"));
-        line.setShape(ValueShape.CIRCLE);    //折线图上每个数据点的形状，这里是圆形（有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
+        line.setShape(ValueShape.CIRCLE);    //折线图上每个数据点的形状，这里是圆形（有三种 ：ValueShape.SQUARE：方形  ValueShape.CIRCLE：圆形  ValueShape.DIAMOND：菱形）
         line.setPointRadius(4);
         line.setStrokeWidth(2);
-        line.setCubic(false);//曲线是否平滑，即是曲线还是折线
+        line.setContinuous(mLineChartContinuous);//当Y为0时跳过不画
+        switch (mLineChartTpye) {
+            case 0: //0:折线图 1：曲线图 2：方线图
+                line.setCubic(false);//折线,如果setSquare会失效默认false
+                break;
+            case 1:
+                line.setCubic(true);//平滑曲线,如果setSquare会失效默认false
+                break;
+            case 2:
+                line.setSquare(true);//画方线条(就是那种拐来拐去直来直去的) ,setCubic会失效默认true
+                break;
+        }
         line.setFilled(false);//是否填充曲线的面积
         line.setHasLabels(false);//曲线的数据坐标是否加上备注
         line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
