@@ -1,11 +1,11 @@
 package com.yuehai.android.presenter;
 
-import android.widget.RadioGroup;
+import android.widget.CompoundButton;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.yuehai.android.model.DemoModel;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.ChartDemoContract;
+import com.yuehai.android.model.ChartDemoModel;
 
 import java.util.List;
 
@@ -18,26 +18,43 @@ import library.base.BasePresenter;
 public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> implements ChartDemoContract.Presenter {
 
     private ChartDemoContract.Model model;
+    private boolean isMonth = true;
 
     public ChartDemoPresenter(ChartDemoContract.View view) {
         super(view);
-        model = new DemoModel();
+        model = new ChartDemoModel();
     }
 
     @Override
     protected void onCreate() {
         super.onCreate();
-        loadData(true);
+        loadData();
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.demo_rb1:
-                loadData(true);
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.chart_demo_rb1:
+                //选中月数据
+                if (isChecked) {
+                    isMonth = true;
+                    loadData();
+                }
                 break;
-            case R.id.demo_rb2:
-                loadData(false);
+            case R.id.chart_demo_rb2:
+                //选中年数据
+                if (isChecked) {
+                    isMonth = false;
+                    loadData();
+                }
+                break;
+            case R.id.chart_demo_cb1:
+                if (isViewAttached()) getView().setBarDataEnable(isChecked);
+                loadData();
+                break;
+            case R.id.chart_demo_cb2:
+                if (isViewAttached()) getView().setLineDataEnable(isChecked);
+                loadData();
                 break;
         }
     }
@@ -45,21 +62,25 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
     /**
      * 设置数据
      */
-    private void loadData(boolean isMonth) {
+    private void loadData() {
         if (isViewAttached()) {
             List<String> xAxis = isMonth ? model.getMonthXData() : model.getYearXData();
             List<Float> yData = isMonth ? model.getMonthYData() : model.getYearYData();
-            getView().setChartData(xAxis, yData, new ValueFormatter() {
+            getView().setChartData(xAxis, new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
-                    if (isMonth && Integer.valueOf(xAxis.get((int) value % xAxis.size())) % 5 != 0) {
-                        //处理月份过多的情况--> %5
-                        return "";
+                    if (isMonth) {
+                        if (Integer.valueOf(xAxis.get((int) value % xAxis.size())) % 5 != 0) {
+                            //处理月份过多的情况--> %5
+                            return "";
+                        } else {
+                            return xAxis.get((int) value % xAxis.size());
+                        }
                     } else {
                         return xAxis.get((int) value % xAxis.size());
                     }
                 }
-            });
+            }, yData);
         }
     }
 }

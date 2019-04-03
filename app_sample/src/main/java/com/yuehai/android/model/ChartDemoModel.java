@@ -1,7 +1,7 @@
 package com.yuehai.android.model;
 
 import com.yuehai.android.contract.ChartDemoContract;
-import com.yuehai.android.net.response.DemoData;
+import com.yuehai.android.net.response.CharDataBean;
 import com.yuehai.android.util.JsonUtil;
 
 import java.util.ArrayList;
@@ -12,15 +12,15 @@ import androidx.annotation.NonNull;
 /**
  * Created by zhaoyuehai 2019/4/2
  */
-public class DemoModel implements ChartDemoContract.Model {
+public class ChartDemoModel implements ChartDemoContract.Model {
     /*
      * 假数据 月数据
      */
-    private List<DemoData> mMonthList;
+    private List<CharDataBean> mMonthList;
     /*
      * 假数据 年数据
      */
-    private List<DemoData> mYearList;
+    private List<CharDataBean> mYearList;
 
     @NonNull
     @Override
@@ -40,8 +40,8 @@ public class DemoModel implements ChartDemoContract.Model {
             y.add(0f);
         }
         for (int i = 0; i < mMonthList.size(); i++) {//设置X值对应的Y值
-            if (mMonthList.get(i).getEqpGen() != null) {
-                y.set(Integer.parseInt(mMonthList.get(i).getDate()) - 1, Float.valueOf(mMonthList.get(i).getEqpGen()));
+            if (mMonthList.get(i).getValue() != null) {
+                y.set(Integer.parseInt(mMonthList.get(i).getDate()) - 1, Float.valueOf(mMonthList.get(i).getValue()));
             }
         }
         return y;
@@ -65,227 +65,191 @@ public class DemoModel implements ChartDemoContract.Model {
             y.add(0f);
         }
         for (int i = 0; i < mYearList.size(); i++) {//设置X值对应的Y值
-            if (mYearList.get(i).getEqpGen() != null) {
-                y.set(Integer.parseInt(mYearList.get(i).getDate()) - 1, Float.valueOf(mYearList.get(i).getEqpGen()));
+            if (mYearList.get(i).getValue() != null) {
+                y.set(Integer.parseInt(mYearList.get(i).getDate()) - 1, Float.valueOf(mYearList.get(i).getValue()));
             }
         }
         return y;
     }
 
-    public DemoModel() {
-        String data_month = "[" + "{" + "\"date\":\"1\"," + "\"eqpGen\":\"11.4762\"," + "\"resource\":\"0.03\"" + "}," + "{" + "\"date\":\"2\"," +
-                "    \"eqpGen\":\"9.6752\"," +
-                "    \"resource\":\"0.03\"" +
+    public ChartDemoModel() {
+        String data_month = "[" +
+                "    {" +
+                "    \"date\":\"1\"," +
+                "    \"value\":\"11.4762\"" +
+                "    }," +
+                "    {" +
+                "    \"date\":\"2\"," +
+                "    \"value\":\"9.6752\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"3\"," +
-                "    \"eqpGen\":\"16.1332\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"16.1332\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"4\"," +
-                "    \"eqpGen\":\"22.2093\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"22.2093\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"5\"," +
-                "    \"eqpGen\":\"20.2761\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"20.2761\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"6\"," +
-                "    \"eqpGen\":\"21.4358\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"21.4358\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"7\"," +
-                "    \"eqpGen\":\"8.5263\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"8.5263\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"8\"," +
-                "    \"eqpGen\":\"19.9229\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"19.9229\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"9\"," +
-                "    \"eqpGen\":\"13.6082\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"13.6082\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"10\"," +
-                "    \"eqpGen\":\"10.4839\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"10.4839\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"11\"," +
-                "    \"eqpGen\":\"9.0943\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"9.0943\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"12\"," +
-                "    \"eqpGen\":\"11.7128\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"11.7128\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"13\"," +
-                "    \"eqpGen\":\"11.2465\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"11.2465\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"14\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"15\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"16\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"17\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"18\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"19\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"20\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"21\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"22\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"23\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"24\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"25\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"23.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"26\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"16.93\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"27\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"28\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"29\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.03\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"30\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"23.58\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"31\"," +
-                "    \"eqpGen\":\"0.0000\"," +
-                "    \"resource\":\"0.02\"" +
+                "    \"value\":\"0.0000\"" +
                 "    }" +
                 "    ]";
-        mMonthList = JsonUtil.stringToArray(data_month, DemoData[].class);
+        mMonthList = JsonUtil.stringToArray(data_month, CharDataBean[].class);
         String data_year = "[" +
                 "    {" +
                 "    \"date\":\"01\"," +
-                "    \"eqpGen\":\"466.2648\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"466.2648\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"02\"," +
-                "    \"eqpGen\":\"437.4457\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"437.4457\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"03\"," +
-                "    \"eqpGen\":\"473.4397\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"473.4397\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"04\"," +
-                "    \"eqpGen\":\"457.2334\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"457.2334\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"05\"," +
-                "    \"eqpGen\":\"420.3451\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"0\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"06\"," +
-                "    \"eqpGen\":\"387.6668\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"387.6668\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"07\"," +
-                "    \"eqpGen\":\"391.8285\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"391.8285\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"08\"," +
-                "    \"eqpGen\":\"372.1738\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"372.1738\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"09\"," +
-                "    \"eqpGen\":\"374.3310\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"374.3310\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"10\"," +
-                "    \"eqpGen\":\"440.9918\"," +
-                "    \"resource\":\"0.00\"" +
+                "    \"value\":\"0\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"11\"," +
-                "    \"eqpGen\":\"509.0135\"," +
-                "    \"resource\":\"323.07\"" +
+                "    \"value\":\"509.0135\"" +
                 "    }," +
                 "    {" +
                 "    \"date\":\"12\"," +
-                "    \"eqpGen\":\"485.8149\"," +
-                "    \"resource\":\"5981.83\"" +
+                "    \"value\":\"485.8149\"" +
                 "    }" +
                 "    ]";
-        mYearList = JsonUtil.stringToArray(data_year, DemoData[].class);
+        mYearList = JsonUtil.stringToArray(data_year, CharDataBean[].class);
     }
 }

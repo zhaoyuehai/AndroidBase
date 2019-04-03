@@ -1,6 +1,6 @@
 package com.yuehai.android.contract;
 
-import android.widget.RadioGroup;
+import android.widget.CompoundButton;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
@@ -19,10 +19,20 @@ public interface ChartDemoContract {
         /**
          * 显示图表数据
          */
-        void setChartData(List<String> xAxisData, List<Float> yData, ValueFormatter formatter);
+        void setChartData(List<String> xAxisData, ValueFormatter formatter, List<Float> yData);
+
+        /**
+         * 是否显示柱状图
+         */
+        void setBarDataEnable(boolean enable);
+
+        /**
+         * 是否显示折线图
+         */
+        void setLineDataEnable(boolean enable);
     }
 
-    interface Presenter extends IBasePresenter, RadioGroup.OnCheckedChangeListener {
+    interface Presenter extends IBasePresenter, CompoundButton.OnCheckedChangeListener {
 
     }
 

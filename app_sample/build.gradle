@@ -11,10 +11,31 @@ android {
         multiDexEnabled true
         flavorDimensions 'environment', "company"
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            jni.srcDirs = []
+        }
+    }
+    signingConfigs {
+        yuehai {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('app_sample.jks')
+            storePassword '123456'
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true//混淆是否开启
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.yuehai
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.yuehai
         }
     }
     productFlavors {

@@ -1,7 +1,8 @@
 package com.yuehai.android.ui;
 
 import android.graphics.Color;
-import android.widget.RadioGroup;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.Legend;
@@ -11,6 +12,9 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.ChartDemoContract;
@@ -29,14 +33,22 @@ import library.base.BaseMvpActivity;
  */
 public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Presenter> implements ChartDemoContract.View {
 
-    @BindView(R.id.combined_chart)
+    @BindView(R.id.chart_demo_combined)
     CombinedChart mCombinedChart;
-    @BindView(R.id.demo_rg)
-    RadioGroup radioGroup;
+    @BindView(R.id.chart_demo_rb1)
+    RadioButton radioButton1;
+    @BindView(R.id.chart_demo_rb2)
+    RadioButton radioButton2;
+    @BindView(R.id.chart_demo_cb1)
+    CheckBox checkBox1;
+    @BindView(R.id.chart_demo_cb2)
+    CheckBox checkBox2;
+    private boolean mBarDataEnable = true;
+    private boolean mLineDataEnable = false;
 
     @Override
     protected int getInnerViewId() {
-        return R.layout.activity_demo;
+        return R.layout.activity_chart_demo;
     }
 
     @Override
@@ -52,7 +64,10 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     @Override
     protected void initView() {
         initChart();
-        radioGroup.setOnCheckedChangeListener(presenter);
+        radioButton1.setOnCheckedChangeListener(presenter);
+        radioButton2.setOnCheckedChangeListener(presenter);
+        checkBox1.setOnCheckedChangeListener(presenter);
+        checkBox2.setOnCheckedChangeListener(presenter);
     }
 
     /**
@@ -94,10 +109,20 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         xAxis.setDrawGridLines(false);
     }
 
+    @Override
+    public void setBarDataEnable(boolean enable) {
+        mBarDataEnable = enable;
+    }
 
     @Override
-    public void setChartData(List<String> xAxisData, List<Float> yData, ValueFormatter formatter) {
-        mCombinedChart.clear();
+    public void setLineDataEnable(boolean enable) {
+        mLineDataEnable = enable;
+    }
+
+    @Override
+    public void setChartData(List<String> xAxisData, ValueFormatter formatter, List<Float> yData) {
+        mCombinedChart.clear();//先清空
+        mCombinedChart.notifyDataSetChanged();
         //设置X轴
         mCombinedChart.getXAxis().setLabelCount(xAxisData.size() - 1, false);
         mCombinedChart.getXAxis().setValueFormatter(formatter);
@@ -109,24 +134,58 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         mv.setData(yData);
         mv.setChartView(mCombinedChart);
         mCombinedChart.setMarker(mv);
-        //用Y轴数据画柱状图
-        mCombinedChart.setData(getCombinedBarData(yData));
+        CombinedData combinedData = new CombinedData();
+        if (mBarDataEnable) {
+            //用Y轴数据画柱状图
+            combinedData.setData(getCombinedBarData(yData));
+        } else {
+            combinedData.setData(new BarData());//因为重复设值，需要设个空值，防止null
+        }
+        if (mLineDataEnable) {
+            //用Y轴数据画曲线
+            combinedData.setData(getCombinedLineData(yData));
+        } else {
+            combinedData.setData(new LineData());//因为重复设值，需要设个空值，防止null
+        }
+        mCombinedChart.setData(combinedData);
         mCombinedChart.animateX(500); // 立即执行的动画,x轴
     }
 
     /**
-     * 柱状图数据
-     *
-     * @param yData Y轴数据
+     * 曲线图数据
      */
-    private CombinedData getCombinedBarData(List<Float> yData) {
+    private LineData getCombinedLineData(List<Float> yData) {
+        LineData lineData = new LineData();
+        ArrayList<Entry> yValue = new ArrayList<>();
+        for (int i = 0; i < yData.size(); i++) {
+            yValue.add(new Entry(i, yData.get(i)));
+        }
+        LineDataSet dataSet = new LineDataSet(yValue, "日曝幅值（MJ/m2）");
+        int color = getResources().getColor(R.color.red);
+        dataSet.setColor(color);
+        dataSet.setCircleColor(color);
+        dataSet.setValueTextColor(color);
+        //显示值
+        dataSet.setDrawValues(false);
+        dataSet.setValueTextSize(10f);
+        dataSet.setCircleRadius(1f);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineData.addDataSet(dataSet);
+        return lineData;
+    }
+
+    /**
+     * 柱状图数据
+     */
+    private BarData getCombinedBarData(List<Float> yData) {
         BarData barData = new BarData();
         ArrayList<BarEntry> yValues = new ArrayList<>();
         for (int i = 0; i < yData.size(); i++) {
             yValues.add(new BarEntry(i, yData.get(i)));
         }
         int color = getResources().getColor(R.color.blue);
-        BarDataSet barDataSet = new BarDataSet(yValues, "累计发电量万kwh");
+        BarDataSet barDataSet = new BarDataSet(yValues, "累计发电量（万kwh）");
         barDataSet.setColor(color);
         barDataSet.setValueTextSize(10f);
         barDataSet.setValueTextColor(color);
@@ -134,9 +193,6 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         barDataSet.setHighLightColor(getResources().getColor(R.color.blue_dark));
         barData.addDataSet(barDataSet);
         barData.setDrawValues(false);
-        //格式化显示数据 barDataSet.setValueFormatter 等等
-        CombinedData combinedData = new CombinedData();
-        combinedData.setData(barData);
-        return combinedData;
+        return barData;
     }
 }
