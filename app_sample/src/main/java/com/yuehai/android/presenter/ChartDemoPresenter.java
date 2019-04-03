@@ -7,8 +7,10 @@ import com.yuehai.android.R;
 import com.yuehai.android.contract.ChartDemoContract;
 import com.yuehai.android.model.ChartDemoModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.PointValue;
 import library.base.BasePresenter;
 
 /**
@@ -66,7 +68,7 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
         if (isViewAttached()) {
             List<String> xAxis = isMonth ? model.getMonthXData() : model.getYearXData();
             List<Float> yData = isMonth ? model.getMonthYData() : model.getYearYData();
-            getView().setChartData(xAxis, new ValueFormatter() {
+            getView().setCombinedChartData(xAxis.size(), new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
                     if (isMonth) {
@@ -81,6 +83,11 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
                     }
                 }
             }, yData);
+            List<PointValue> pointValues = new ArrayList<>();
+            for (int x=0;x<yData.size();x++) {
+            pointValues.add(new PointValue(x, yData.get(x)));
+            }
+            getView().setLineChartData(pointValues);
         }
     }
 }

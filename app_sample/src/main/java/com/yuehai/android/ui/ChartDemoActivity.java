@@ -25,6 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.model.Viewport;
+import lecho.lib.hellocharts.view.LineChartView;
 import library.base.BaseMvpActivity;
 
 /**
@@ -35,6 +43,8 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
 
     @BindView(R.id.chart_demo_combined)
     CombinedChart mCombinedChart;
+    @BindView(R.id.chart_demo_line_chart)
+    LineChartView mLineChart;
     @BindView(R.id.chart_demo_rb1)
     RadioButton radioButton1;
     @BindView(R.id.chart_demo_rb2)
@@ -63,7 +73,8 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
 
     @Override
     protected void initView() {
-        initChart();
+        initCombinedChart();
+        initLineChart();
         radioButton1.setOnCheckedChangeListener(presenter);
         radioButton2.setOnCheckedChangeListener(presenter);
         checkBox1.setOnCheckedChangeListener(presenter);
@@ -71,10 +82,10 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     }
 
     /**
-     * 初始化图标控件
+     * 初始化CombinedChart控件
      * 属性介绍：https://blog.csdn.net/baidu_31956557/article/details/80975541
      */
-    private void initChart() {
+    private void initCombinedChart() {
         mCombinedChart.setScaleEnabled(false); // 两个轴上的缩放,X,Y分别默认为true
         mCombinedChart.setDrawBorders(false); // 显示边界（黑方框）
         mCombinedChart.getDescription().setEnabled(false);//不显示描述内容
@@ -109,6 +120,16 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         xAxis.setDrawGridLines(false);
     }
 
+    /**
+     * 初始化LineChartView控件
+     */
+    private void initLineChart() {
+        //设置行为属性，缩放、滑动、平移
+        mLineChart.setInteractive(false);//设置图表是可以交互的（拖拽，缩放等效果的前提）
+//        mLineChart.setZoomType(ZoomType.HORIZONTAL);//设置缩放方向
+//        mLineChart.setMaxZoom((float) 3);//最大放大比例
+    }
+
     @Override
     public void setBarDataEnable(boolean enable) {
         mBarDataEnable = enable;
@@ -120,15 +141,15 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     }
 
     @Override
-    public void setChartData(List<String> xAxisData, ValueFormatter formatter, List<Float> yData) {
+    public void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData) {
         mCombinedChart.clear();//先清空
         mCombinedChart.notifyDataSetChanged();
         //设置X轴
-        mCombinedChart.getXAxis().setLabelCount(xAxisData.size() - 1, false);
+        mCombinedChart.getXAxis().setLabelCount(xSize - 1, false);
         mCombinedChart.getXAxis().setValueFormatter(formatter);
         //以下是为了解决 柱状图 左右两边只显示了一半的问题
         mCombinedChart.getXAxis().setAxisMinimum(-0.5f);
-        mCombinedChart.getXAxis().setAxisMaximum((float) (xAxisData.size() - 0.5));
+        mCombinedChart.getXAxis().setAxisMaximum((float) (xSize - 0.5));
         //设置MarkerView
         MyMarkerView mv = new MyMarkerView(this);
         mv.setData(yData);
@@ -149,6 +170,58 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         }
         mCombinedChart.setData(combinedData);
         mCombinedChart.animateX(500); // 立即执行的动画,x轴
+    }
+
+    @Override
+    public void setLineChartData(List<PointValue> pointValues) {
+        Line line = new Line(pointValues).setColor(Color.parseColor("#FFCD41"));
+        line.setShape(ValueShape.CIRCLE);    //折线图上每个数据点的形状，这里是圆形（有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
+        line.setPointRadius(4);
+        line.setStrokeWidth(2);
+        line.setCubic(false);//曲线是否平滑，即是曲线还是折线
+        line.setFilled(false);//是否填充曲线的面积
+        line.setHasLabels(false);//曲线的数据坐标是否加上备注
+        line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        line.setHasLines(true);//是否用线显示。如果为false 则没有曲线只有点显示
+        line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
+        List<Line> lines = new ArrayList<>();
+        lines.add(line);
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+        //坐标文字颜色
+        int color = getResources().getColor(R.color.text_black);
+        //坐标轴 -x轴
+        Axis axisX = new Axis();//
+        //axisX.setName("表格XXX");//表格名称
+        axisX.setHasTiltedLabels(false);//X坐标轴字体是斜的显示还是直的，true是斜的显示
+        axisX.setTextColor(color);//设置字体颜色
+        axisX.setTextSize(8);//设置字体大小
+        axisX.setMaxLabelChars(8);//最多几个X轴坐标 意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
+        data.setAxisXBottom(axisX);//x 轴在底部
+//        data.setAxisXTop(axisX);//x 轴在顶部
+        axisX.setHasLines(true);//x 轴分割线
+        List<AxisValue> mAxisXValues = new ArrayList<>();
+        for (int x = 1; x <= pointValues.size(); x++) {
+            AxisValue axisValue = new AxisValue(x);
+            axisValue.setLabel(String.valueOf(x));
+            mAxisXValues.add(axisValue);
+        }
+        axisX.setValues(mAxisXValues);//填充X轴的坐标名称
+
+        //坐标轴 -y轴
+        Axis axisY = new Axis();//Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
+        axisY.setName("这是Y");//y轴标注
+        axisY.setTextColor(color);//设置字体颜色
+        axisY.setTextSize(8);
+        data.setAxisYLeft(axisY);//Y轴设置在左边
+//        data.setAxisYRight(axisY);//y轴设置在右边
+        //设置X轴数据的显示个数（x轴0-7个数据）
+        Viewport v = new Viewport(mLineChart.getMaximumViewport());
+        v.left = 0;
+        v.right = 7;
+        mLineChart.setCurrentViewport(v);
+        mLineChart.setLineChartData(data);
     }
 
     /**

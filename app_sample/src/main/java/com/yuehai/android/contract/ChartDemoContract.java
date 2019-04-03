@@ -7,6 +7,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import lecho.lib.hellocharts.model.PointValue;
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
@@ -19,8 +20,12 @@ public interface ChartDemoContract {
         /**
          * 显示图表数据
          */
-        void setChartData(List<String> xAxisData, ValueFormatter formatter, List<Float> yData);
+        void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData);
 
+        /**
+         * 显示折线图数据
+         */
+        void setLineChartData(List<PointValue> yData);
         /**
          * 是否显示柱状图
          */

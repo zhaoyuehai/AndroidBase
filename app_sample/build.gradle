@@ -69,6 +69,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library_base')
+    implementation project(':hellocharts-library')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
