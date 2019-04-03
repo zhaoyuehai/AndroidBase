@@ -9,4 +9,6 @@
     <string name="cancel">取消</string>
     <string name="commit">提交</string>
     <string name="delete">删除</string>
+    <string name="chart_demo">图表Demo</string>
+    <string name="theme_setting">主题设置</string>
 </resources>

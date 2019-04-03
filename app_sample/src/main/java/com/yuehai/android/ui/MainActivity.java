@@ -19,6 +19,8 @@ import library.base.BaseActivity;
 public class MainActivity extends BaseActivity {
     @BindView(R.id.test_btn3)
     Button test3;
+    @BindView(R.id.test_btn4)
+    Button test4;
 
     @Override
     protected int getInnerViewId() {
@@ -38,10 +40,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        test3.setText("图表测试");
+        test3.setText(R.string.chart_demo);
+        test4.setText(R.string.theme_setting);
     }
 
-    @OnClick({R.id.test_btn1, R.id.test_btn2, R.id.test_btn3})
+    @OnClick({R.id.test_btn1, R.id.test_btn2, R.id.test_btn3, R.id.test_btn4})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.test_btn1:
@@ -51,9 +54,10 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, UserListActivity.class));
                 break;
             case R.id.test_btn3:
-                Intent intent = new Intent(MainActivity.this, ChartDemoActivity.class);
-                intent.putExtra("title", test3.getText().toString());
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, ChartDemoActivity.class));
+                break;
+            case R.id.test_btn4:
+                startActivity(new Intent(MainActivity.this, ThemeSettingActivity.class));
                 break;
         }
     }

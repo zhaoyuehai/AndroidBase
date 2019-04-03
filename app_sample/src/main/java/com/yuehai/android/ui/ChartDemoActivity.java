@@ -40,14 +40,17 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     }
 
     @Override
+    protected int getToolbarTitle() {
+        return R.string.chart_demo;
+    }
+
+    @Override
     protected ChartDemoContract.Presenter createPresenter() {
         return new ChartDemoPresenter(this);
     }
 
     @Override
     protected void initView() {
-        String title = getIntent().getStringExtra("title");
-        if (title != null) setToolbarTitle(title);
         initChart();
         radioGroup.setOnCheckedChangeListener(presenter);
     }

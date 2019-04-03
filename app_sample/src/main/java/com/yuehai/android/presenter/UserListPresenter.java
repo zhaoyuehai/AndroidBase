@@ -1,12 +1,12 @@
 package com.yuehai.android.presenter;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.yuehai.android.util.RxUtil;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
 import com.yuehai.android.net.response.ResultBean;
 import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.util.RxUtil;
 import com.yuehai.android.widget.TipDialogFragment;
 
 import java.util.List;
@@ -108,8 +108,12 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
 
                     @Override
                     public void onNext(ResultBean<String> stringResultBean) {
-                        if (isViewAttached() && stringResultBean.getData().equals("1")) {
-                            getView().onDeleteSuccess(userBean);
+                        if (isViewAttached()) {
+                            if (stringResultBean.getData().equals("1")) {
+                                getView().onDeleteSuccess(userBean);
+                            } else {
+                                getView().showToast("删除失败");
+                            }
                         }
                     }
 
