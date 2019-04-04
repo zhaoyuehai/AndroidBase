@@ -35,7 +35,7 @@ public interface ChartDemoContract {
         /**
          * 显示第二个图表数据
          */
-        void setLineChartData(List<PointValue> yData);
+        void setLineChartData(List<Float> yData);
 
         /**
          * 第二个图表类型

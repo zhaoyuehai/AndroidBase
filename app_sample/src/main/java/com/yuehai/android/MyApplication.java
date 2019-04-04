@@ -7,5 +7,5 @@ import library.base.BaseApplication;
  */
 public class MyApplication extends BaseApplication {
 
-    public static String BASE_URL = "";
+    public static String BASE_URL;
 }

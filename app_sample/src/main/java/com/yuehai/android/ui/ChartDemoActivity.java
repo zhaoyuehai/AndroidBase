@@ -23,9 +23,11 @@ import com.yuehai.android.presenter.ChartDemoPresenter;
 import com.yuehai.android.widget.MyMarkerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
+import library.base.BaseMvpActivity;
 import library.widget.chart.model.Axis;
 import library.widget.chart.model.AxisValue;
 import library.widget.chart.model.Line;
@@ -34,7 +36,6 @@ import library.widget.chart.model.PointValue;
 import library.widget.chart.model.ValueShape;
 import library.widget.chart.model.Viewport;
 import library.widget.chart.view.LineChartView;
-import library.base.BaseMvpActivity;
 
 /**
  * 图表的Demo V
@@ -198,7 +199,15 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
     }
 
     @Override
-    public void setLineChartData(List<PointValue> pointValues) {
+    public void setLineChartData(List<Float> yData) {
+        //转换为点
+        List<PointValue> pointValues = new ArrayList<>();
+        for (int x = 0; x < yData.size(); x++) {
+            pointValues.add(new PointValue(x + 1, yData.get(x)));
+        }
+
+        LineChartData data = new LineChartData();
+
         Line line = new Line(pointValues).setColor(Color.parseColor("#FFCD41"));
         line.setShape(ValueShape.CIRCLE);    //折线图上每个数据点的形状，这里是圆形（有三种 ：ValueShape.SQUARE：方形  ValueShape.CIRCLE：圆形  ValueShape.DIAMOND：菱形）
         line.setPointRadius(4);
@@ -222,7 +231,6 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
         List<Line> lines = new ArrayList<>();
         lines.add(line);
-        LineChartData data = new LineChartData();
         data.setLines(lines);
 
         //坐标文字颜色
@@ -233,31 +241,32 @@ public class ChartDemoActivity extends BaseMvpActivity<ChartDemoContract.Present
         axisX.setHasTiltedLabels(false);//X坐标轴字体是斜的显示还是直的，true是斜的显示
         axisX.setTextColor(color);//设置字体颜色
         axisX.setTextSize(8);//设置字体大小
-        axisX.setMaxLabelChars(8);//最多几个X轴坐标 意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
-        data.setAxisXBottom(axisX);//x 轴在底部
 //        data.setAxisXTop(axisX);//x 轴在顶部
-        axisX.setHasLines(true);//x 轴分割线
-        List<AxisValue> mAxisXValues = new ArrayList<>();
-        for (int x = 1; x <= pointValues.size(); x++) {
-            AxisValue axisValue = new AxisValue(x);
-            axisValue.setLabel(String.valueOf(x));
-            mAxisXValues.add(axisValue);
-        }
-        axisX.setValues(mAxisXValues);//填充X轴的坐标名称
+        data.setAxisXBottom(axisX);//x 轴在底部
 
         //坐标轴 -y轴
         Axis axisY = new Axis();//Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
-        axisY.setName("这是Y");//y轴标注
+        axisY.setName("发电量（万kWh）");//y轴标注
         axisY.setTextColor(color);//设置字体颜色
         axisY.setTextSize(8);
         data.setAxisYLeft(axisY);//Y轴设置在左边
-//        data.setAxisYRight(axisY);//y轴设置在右边
-        //设置X轴数据的显示个数（x轴0-7个数据）
-        Viewport v = new Viewport(mLineChart.getMaximumViewport());
-        v.left = 0;
-        v.right = 7;
-        mLineChart.setCurrentViewport(v);
+        data.setAxisYRight(axisY);//y轴设置在右边
+
         mLineChart.setLineChartData(data);
+        //viewport必须设置在setLineChartData后面，设置一个当前viewport，再设置一个maxviewport，
+        //就可以实现滚动，高度要设置数据的上下限
+        //设置是否允许在动画进行中或设置完表格数据后，自动计算viewport的大小。如果禁止，则需要可以手动设置。
+        //lineChart.setViewportCalculationEnabled(true);
+        final Viewport v = new Viewport(mLineChart.getMaximumViewport());
+        v.bottom = 0;
+        //Y轴最大值为 加上20、防止显示不全
+        float maxPoint = Collections.max(yData);
+        v.top = maxPoint + (pointValues.size() > 12 ? 5 : 50);
+        mLineChart.setMaximumViewport(v);
+        //这2个属性的设置一定要在mLineChart.setMaximumViewport(v)方法之后,不然显示的坐标数据是不能左右滑动查看更多数据的
+        v.left = 1;
+        v.right = pointValues.size();//X轴显示最大值
+        mLineChart.setCurrentViewport(v);
     }
 
     /**

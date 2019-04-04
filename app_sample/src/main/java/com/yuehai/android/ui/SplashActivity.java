@@ -17,9 +17,7 @@ import library.base.BaseMvpActivity;
  * 闪屏启动页 V
  * Created by zhaoyuehai 2019/3/22
  */
-public class SplashActivity extends BaseMvpActivity<SplashContract.Presenter> implements SplashContract.View, InputDialogFragment.OnClickListener {
-
-    private InputDialogFragment inputDialogFragment;
+public class SplashActivity extends BaseMvpActivity<SplashContract.Presenter> implements SplashContract.View{
 
     @Override
     protected SplashContract.Presenter createPresenter() {
@@ -40,33 +38,5 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.Presenter> im
     public void goMain() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
-    }
-
-    @Override
-    public void showInputDialog() {
-        String FGTag = "InputDialogFragment";
-        if (inputDialogFragment == null) {
-            inputDialogFragment = (InputDialogFragment) getSupportFragmentManager().findFragmentByTag(FGTag);
-            if (inputDialogFragment == null) {
-                String ip = SPUtil.getInstance(Contacts.SP_NAME).getString(Contacts.SP_IP_ADDRESS, "");
-                inputDialogFragment = InputDialogFragment.newInstance("请输入服务器地址", ip);
-                inputDialogFragment.setCancelable(false);
-            }
-            inputDialogFragment.setOnConfirmListener(this);
-        }
-        if (!inputDialogFragment.isAdded())
-            inputDialogFragment.show(getSupportFragmentManager(), FGTag);
-    }
-
-    @Override
-    public void onConfirm(String content) {
-        presenter.checkUrl(content);
-    }
-
-    @Override
-    public void onCancel() {
-        // TODO: 2019/4/2 临时处理，服务没启动也可用进应用
-        MyApplication.BASE_URL = BuildConfig.BASE_URL;
-        goMain();
     }
 }

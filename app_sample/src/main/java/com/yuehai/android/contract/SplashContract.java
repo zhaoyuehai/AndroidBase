@@ -13,21 +13,8 @@ public interface SplashContract {
          * 去主界面
          */
         void goMain();
-
-        /**
-         * 输入服务器地址弹框
-         */
-        void showInputDialog();
-
     }
 
     interface Presenter extends IBasePresenter {
-
-        /**
-         * 检查服务器地址是否连通
-         *
-         * @param url 服务器地址
-         */
-        void checkUrl(String url);
     }
 }

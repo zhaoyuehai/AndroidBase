@@ -6,6 +6,17 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/test_btn0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/blue"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/set_address"
+        android:textColor="@color/white" />
+
+    <Button
         android:id="@+id/test_btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

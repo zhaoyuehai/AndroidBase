@@ -105,11 +105,7 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
                     }
                 }
             }, yData);
-            List<PointValue> pointValues = new ArrayList<>();
-            for (int x = 0; x < yData.size(); x++) {
-                pointValues.add(new PointValue(x, yData.get(x)));
-            }
-            getView().setLineChartData(pointValues);
+            getView().setLineChartData(yData);
         }
     }
 }

@@ -26,7 +26,7 @@ public class ChartDemoModel implements ChartDemoContract.Model {
     @Override
     public List<String> getMonthXData() {
         List<String> xList = new ArrayList<>();
-        for (int i = 0; i < mMonthList.size(); i++) {//设置30天
+        for (int i = 1; i <= mMonthList.size(); i++) {//设置30天
             xList.add(String.valueOf(i));
         }
         return xList;
@@ -51,7 +51,7 @@ public class ChartDemoModel implements ChartDemoContract.Model {
     @Override
     public List<String> getYearXData() {
         List<String> xList = new ArrayList<>();
-        for (int i = 0; i < mYearList.size(); i++) {//设置12个月
+        for (int i = 1; i <= mYearList.size(); i++) {//设置12个月
             xList.add(String.valueOf(i));
         }
         return xList;

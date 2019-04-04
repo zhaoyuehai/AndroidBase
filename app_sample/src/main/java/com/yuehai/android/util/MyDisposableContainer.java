@@ -1,79 +1,17 @@
-package library.base;
-
-
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.OnLifecycleEvent;
-
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
+package com.yuehai.android.util;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.disposables.DisposableContainer;
 
 /**
- * MVP中的Presenter基类
- * <p>
- * 使用了{@link CompositeDisposable}维护RxJava订阅
- * 也可以考虑用{@link io.reactivex.internal.disposables.DisposableHelper}
- * <p>
+ * Created by zhaoyuehai 2019/4/4
  */
+public class MyDisposableContainer implements DisposableContainer {
 
-public abstract class BasePresenter<V> implements IBasePresenter {
 
     //网络请求订阅管理容器
     private CompositeDisposable mCompositeDisposable;
-
-    //防止view的内存泄露，弱引用
-    private Reference<V> mViewRef; //View接口类型的弱引用
-
-    public BasePresenter(V view) {
-        mViewRef = new WeakReference<>(view); //建立关联
-    }
-
-    protected V getView() {
-        if (isViewAttached()) {
-            return mViewRef.get();
-        }
-        return null; //获取View
-    }
-
-    protected boolean isViewAttached() {
-        return mViewRef != null && mViewRef.get() != null; //判断是否与View建立关联
-    }
-
-    /**
-     * 在Activity/Fragment的onCreate()方法执行完成后执行此方法
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    protected void onCreate() {
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    protected void onStart() {
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    protected void onResume() {
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    protected void onPause() {
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    protected void onStop() {
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    protected void onDestroy() {
-        if (isViewAttached()) {
-            mViewRef.clear(); //解除关联
-            mViewRef = null;
-        }
-        if (mCompositeDisposable != null) {
-            mCompositeDisposable.clear();
-        }
-    }
 
     @Override
     public boolean add(Disposable d) {
@@ -118,5 +56,11 @@ public abstract class BasePresenter<V> implements IBasePresenter {
             mCompositeDisposable = new CompositeDisposable();
         }
         return mCompositeDisposable.delete(d);
+    }
+
+    public void clear() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.clear();
+        }
     }
 }
