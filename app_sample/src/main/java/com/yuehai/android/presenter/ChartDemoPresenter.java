@@ -2,15 +2,12 @@ package com.yuehai.android.presenter;
 
 import android.widget.CompoundButton;
 
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.ChartDemoContract;
 import com.yuehai.android.model.ChartDemoModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import library.widget.chart.model.PointValue;
 import library.base.BasePresenter;
 
 /**
@@ -68,14 +65,14 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
                     loadData();
                 }
                 break;
-            case R.id.chart_demo_cb1:
-                if (isViewAttached()) getView().setBarDataEnable(isChecked);
-                loadData();
-                break;
-            case R.id.chart_demo_cb2:
-                if (isViewAttached()) getView().setLineDataEnable(isChecked);
-                loadData();
-                break;
+//            case R.id.chart_demo_cb1:
+//                if (isViewAttached()) getView().setBarDataEnable(isChecked);
+//                loadData();
+//                break;
+//            case R.id.chart_demo_cb2:
+//                if (isViewAttached()) getView().setLineDataEnable(isChecked);
+//                loadData();
+//                break;
             case R.id.chart_demo_sw:
                 if (isViewAttached()) getView().setLineChartContinuous(isChecked);
                 loadData();
@@ -88,23 +85,23 @@ public class ChartDemoPresenter extends BasePresenter<ChartDemoContract.View> im
      */
     private void loadData() {
         if (isViewAttached()) {
-            List<String> xAxis = isMonth ? model.getMonthXData() : model.getYearXData();
+//            List<String> xAxis = isMonth ? model.getMonthXData() : model.getYearXData();
             List<Float> yData = isMonth ? model.getMonthYData() : model.getYearYData();
-            getView().setCombinedChartData(xAxis.size(), new ValueFormatter() {
-                @Override
-                public String getFormattedValue(float value) {
-                    if (isMonth) {
-                        if (Integer.valueOf(xAxis.get((int) value % xAxis.size())) % 5 != 0) {
-                            //处理月份过多的情况--> %5
-                            return "";
-                        } else {
-                            return xAxis.get((int) value % xAxis.size());
-                        }
-                    } else {
-                        return xAxis.get((int) value % xAxis.size());
-                    }
-                }
-            }, yData);
+//            getView().setCombinedChartData(xAxis.size(), new ValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value) {
+//                    if (isMonth) {
+//                        if (Integer.valueOf(xAxis.get((int) value % xAxis.size())) % 5 != 0) {
+//                            //处理月份过多的情况--> %5
+//                            return "";
+//                        } else {
+//                            return xAxis.get((int) value % xAxis.size());
+//                        }
+//                    } else {
+//                        return xAxis.get((int) value % xAxis.size());
+//                    }
+//                }
+//            }, yData);
             getView().setLineChartData(yData);
         }
     }

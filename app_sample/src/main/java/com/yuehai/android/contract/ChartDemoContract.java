@@ -2,12 +2,9 @@ package com.yuehai.android.contract;
 
 import android.widget.CompoundButton;
 
-import com.github.mikephil.charting.formatter.ValueFormatter;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import library.widget.chart.model.PointValue;
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
@@ -17,20 +14,20 @@ import library.base.IBaseView;
  */
 public interface ChartDemoContract {
     interface View extends IBaseView {
-        /**
-         * 显示第一个图表数据
-         */
-        void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData);
+//        /**
+//         * 显示第一个图表数据
+//         */
+//        void setCombinedChartData(int xSize, ValueFormatter formatter, List<Float> yData);
 
-        /**
-         * 第一个图表是否显示柱状图
-         */
-        void setBarDataEnable(boolean enable);
-
-        /**
-         * 第一个图表是否显示折线图
-         */
-        void setLineDataEnable(boolean enable);
+//        /**
+//         * 第一个图表是否显示柱状图
+//         */
+//        void setBarDataEnable(boolean enable);
+//
+//        /**
+//         * 第一个图表是否显示折线图
+//         */
+//        void setLineDataEnable(boolean enable);
 
         /**
          * 显示第二个图表数据
