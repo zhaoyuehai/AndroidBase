@@ -23,10 +23,10 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     }
 
     @Override
-    public void onRegister(String userName, String password) {
+    public void onRegister(String userName, String password, String phone) {
         ApiUtil.getInstance()
                 .getApiService()
-                .register(new RegisterUserBen(userName, Base64.encodeToString(password.getBytes(), Base64.NO_WRAP)))
+                .register(new RegisterUserBen(userName, Base64.encodeToString(password.getBytes(), Base64.NO_WRAP),phone))
                 .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<String>>(this, true) {
 

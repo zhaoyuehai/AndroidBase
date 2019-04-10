@@ -1,5 +1,6 @@
 package com.yuehai.android.ui;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,7 +26,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterContract.Presenter
 
     @Override
     protected int getInnerViewId() {
-        return R.layout.activity_user_register;
+        return R.layout.activity_register;
     }
 
     @Override
@@ -33,6 +34,8 @@ public class RegisterActivity extends BaseMvpActivity<RegisterContract.Presenter
         return R.string.register;
     }
 
+    @BindView(R.id.et_0)
+    EditText editText0;
     @BindView(R.id.et_1)
     EditText editText1;
     @BindView(R.id.et_2)
@@ -43,19 +46,25 @@ public class RegisterActivity extends BaseMvpActivity<RegisterContract.Presenter
         switch (view.getId()) {
             case R.id.register_btn:
                 //添加用户
-                if (editText1.getText() == null || editText1.getText().toString().equals("")) {
+                if (TextUtils.isEmpty(editText0.getText().toString().trim())) {
+                    editText1.setError("请输入手机号");
+                    editText1.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(editText1.getText().toString().trim())) {
                     editText1.setError("请输入用户名");
                     editText1.requestFocus();
                     return;
                 }
-                if (editText2.getText() == null || editText2.getText().toString().equals("")) {
+                if (TextUtils.isEmpty(editText2.getText().toString().trim())) {
                     editText2.setError("请输入密码");
                     editText2.requestFocus();
                     return;
                 }
-                String userName = editText1.getText().toString();
-                String password = editText2.getText().toString();
-                presenter.onRegister(userName, password);
+                String phone = editText0.getText().toString().trim();
+                String userName = editText1.getText().toString().trim();
+                String password = editText2.getText().toString().trim();
+                presenter.onRegister(userName, password, phone);
                 break;
         }
     }

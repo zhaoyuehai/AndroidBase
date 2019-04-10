@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements InputDialogFragment.On
                 showInputDialog();
                 break;
             case R.id.test_btn1:
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
             case R.id.test_btn2:
                 startActivity(new Intent(MainActivity.this, UserListActivity.class));

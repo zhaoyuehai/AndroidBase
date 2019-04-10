@@ -4,38 +4,31 @@ package com.yuehai.android.net.response;
  * Created by zhaoyuehai 2019/3/28
  */
 public class UserBean {
-    //    {"id":1,"status":2,"userName":"zhaoyuehai","password":"$2a$10$fFD570Fh8UR.beVDRIJykuCOTY6JV5RizJlklIYQQMCxIe8py4W5S","email":"zhaoyuehai5282@163.com","nickName":"月海","phone":"18511073583","createTime":null,"avatar":null}
-    private String avatar;
-    private String createTime;
-    private String email;
+    private String token;
+    private String tokenHeader;
     private String userName;
-    private String nickName;
-    private String phone;
     private int status;
-    private long id;
+    private String avatar;
+    private String phone;
+    private String email;
+    private String nickName;
+    private long userId;
 
-    public String getAvatar() {
-        return avatar;
+
+    public String getToken() {
+        return token;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getTokenHeader() {
+        return tokenHeader;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTokenHeader(String tokenHeader) {
+        this.tokenHeader = tokenHeader;
     }
 
     public String getUserName() {
@@ -46,12 +39,20 @@ public class UserBean {
         this.userName = userName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public int getStatus() {
+        return status;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getPhone() {
@@ -62,19 +63,27 @@ public class UserBean {
         this.phone = phone;
     }
 
-    public int getStatus() {
-        return status;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

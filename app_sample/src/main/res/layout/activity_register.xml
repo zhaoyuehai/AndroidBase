@@ -6,6 +6,15 @@
     android:padding="20dp">
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_0"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:hint="手机号"
+        android:inputType="phone"
+        android:maxLines="1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_1"
         android:layout_width="match_parent"
         android:layout_height="45dp"

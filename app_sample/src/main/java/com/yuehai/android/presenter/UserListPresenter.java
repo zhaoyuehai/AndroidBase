@@ -97,7 +97,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     private void delete(UserBean userBean) {
         ApiUtil.getInstance()
                 .getApiService()
-                .deleteUser(userBean.getId())
+                .deleteUser(userBean.getUserId())
                 .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<String>>(this) {
                     @Override

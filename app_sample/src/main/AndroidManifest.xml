@@ -16,8 +16,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.ThemeSettingActivity" />
+        android:theme="@style/AppTheme_Light">
+        <activity android:name=".ui.SetPwdActivity" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ThemeSettingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
