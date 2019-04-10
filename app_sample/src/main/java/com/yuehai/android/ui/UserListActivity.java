@@ -7,6 +7,7 @@ import com.yuehai.android.R;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.response.ResultBean;
 import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.net.response.UserForListBean;
 import com.yuehai.android.presenter.UserListPresenter;
 import com.yuehai.android.ui.adapter.UserListViewHolder;
 import com.yuehai.android.widget.TipDialogFragment;
@@ -33,7 +34,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     protected SmartRefreshLayout smartRL;
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
-    private CommonRecycleAdapter<UserBean> adapter;
+    private CommonRecycleAdapter<UserForListBean> adapter;
     private TipDialogFragment confirmDialog;
 
     @Override
@@ -55,10 +56,10 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     protected void initView() {
         super.initView();
         smartRL.setOnRefreshLoadMoreListener(presenter);
-        adapter = new CommonRecycleAdapter<UserBean>() {
+        adapter = new CommonRecycleAdapter<UserForListBean>() {
             @NonNull
             @Override
-            public BaseViewHolder<UserBean> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public BaseViewHolder<UserForListBean> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 return new UserListViewHolder(parent, UserListActivity.this::onDeleteClick);
             }
         };
@@ -68,7 +69,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     }
 
     @Override
-    public void showData(@Nullable ResultBean<List<UserBean>> result, boolean isClear) {
+    public void showData(@Nullable ResultBean<List<UserForListBean>> result, boolean isClear) {
         if (isClear) adapter.clear();
         if (result != null) {
             if (result.getData().size() > 0) {
@@ -101,7 +102,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     }
 
     @Override
-    public void onDeleteSuccess(UserBean userBean) {
+    public void onDeleteSuccess(UserForListBean userBean) {
         adapter.remove(userBean);
     }
 

@@ -3,6 +3,7 @@ package com.yuehai.android.net;
 import com.yuehai.android.net.request.RegisterUserBen;
 import com.yuehai.android.net.response.ResultBean;
 import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.net.response.UserForListBean;
 
 import java.util.List;
 
@@ -21,25 +22,6 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
     /**
-     * 分页加载用户列表
-     */
-    @GET("users")
-    Observable<ResultBean<List<UserBean>>> getUsers(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
-
-    /**
-     * 注册新用户
-     */
-    @POST("user")
-    Observable<ResultBean<String>> register(@Body RegisterUserBen body);
-
-    /**
-     * 删除用户
-     */
-    @DELETE("user/{id}")
-    Observable<ResultBean<String>> deleteUser(@Path("id") Long id);
-
-
-    /**
      * 登录接口
      *
      * @param userName 用户名/手机号
@@ -50,4 +32,21 @@ public interface ApiService {
     @POST("login")
     Observable<ResultBean<UserBean>> login(@Field("username") String userName, @Field("password") String password);
 
+    /**
+     * 注册
+     */
+    @POST("user")
+    Observable<ResultBean<String>> register(@Body RegisterUserBen body);
+
+    /**
+     * 分页加载用户列表
+     */
+    @GET("users")
+    Observable<ResultBean<List<UserForListBean>>> getUsers(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    /**
+     * 删除用户
+     */
+    @DELETE("user/{id}")
+    Observable<ResultBean<String>> deleteUser(@Path("id") Long id);
 }

@@ -35,6 +35,7 @@ public class ApiUtil {
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(logInterceptor)
+                .addInterceptor(new TokenInterceptor())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)

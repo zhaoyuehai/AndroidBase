@@ -11,7 +11,7 @@
     <string name="delete">删除</string>
     <string name="chart_demo">图表Demo</string>
     <string name="theme_setting">主题设置</string>
-    <string name="set_address">设置SERVER_URL</string>
     <string name="login">登录</string>
     <string name="reset_pwd">重置密码</string>
+    <string name="exit_login">退出登录</string>
 </resources>

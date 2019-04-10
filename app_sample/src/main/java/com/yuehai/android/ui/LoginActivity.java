@@ -38,6 +38,18 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
     @BindView(R.id.pwd_et)
     EditText passwordEt;
 
+    @Override
+    public void initUserName(String username) {
+        userNameEt.setText(username);
+        userNameEt.setSelection(username.length());
+    }
+
+    @Override
+    public void goMain() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
     @OnClick({R.id.login_btn, R.id.register_go_tv, R.id.find_pwd_tv})
     public void OnClick(View view) {
         switch (view.getId()) {
@@ -64,4 +76,5 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
                 break;
         }
     }
+
 }

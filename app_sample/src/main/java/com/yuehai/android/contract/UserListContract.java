@@ -2,7 +2,7 @@ package com.yuehai.android.contract;
 
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.yuehai.android.net.response.ResultBean;
-import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.net.response.UserForListBean;
 import com.yuehai.android.widget.TipDialogFragment;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public interface UserListContract {
          * @param result  列表数据
          * @param isClear 下拉刷新时，先清空
          */
-        void showData(@Nullable ResultBean<List<UserBean>> result, boolean isClear);
+        void showData(@Nullable ResultBean<List<UserForListBean>> result, boolean isClear);
 
         /**
          * 弹框确认后
@@ -37,13 +37,13 @@ public interface UserListContract {
          *
          * @param userBean UserBean
          */
-        void onDeleteSuccess(UserBean userBean);
+        void onDeleteSuccess(UserForListBean userBean);
     }
 
     interface Presenter extends IBasePresenter, OnRefreshLoadMoreListener {
         /**
          * 弹框确认后删除
          */
-        void onLongClick(UserBean userBean);
+        void onLongClick(UserForListBean userBean);
     }
 }

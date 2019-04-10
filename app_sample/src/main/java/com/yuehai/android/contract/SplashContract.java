@@ -1,5 +1,8 @@
 package com.yuehai.android.contract;
 
+import com.yuehai.android.widget.InputDialogFragment;
+
+import library.base.BaseActivity;
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
@@ -10,11 +13,16 @@ import library.base.IBaseView;
 public interface SplashContract {
     interface View extends IBaseView {
         /**
-         * 去主界面
+         * 输入服务器地址弹框
          */
-        void goMain();
+        void showInputDialog();
+
+        /**
+         * 去主界面/登录页
+         */
+        void goNextPage(Class<? extends BaseActivity> activity);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends IBasePresenter , InputDialogFragment.OnClickListener {
     }
 }

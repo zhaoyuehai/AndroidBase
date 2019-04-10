@@ -1,13 +1,17 @@
 package com.yuehai.android.presenter;
 
+import android.text.TextUtils;
 import android.util.Base64;
 
+import com.yuehai.android.Contacts;
+import com.yuehai.android.UserData;
 import com.yuehai.android.contract.LoginContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
 import com.yuehai.android.net.response.ResultBean;
 import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.util.RxUtil;
+import com.yuehai.android.util.SPUtil;
 
 import io.reactivex.disposables.Disposable;
 import library.base.BasePresenter;
@@ -21,7 +25,17 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
+    protected void onCreate() {
+        super.onCreate();
+        String username = SPUtil.getInstance(Contacts.SP_NAME).getString(Contacts.LOGIN_NAME);
+        if(isViewAttached()&&!TextUtils.isEmpty(username)){
+            getView().initUserName(username);
+        }
+    }
+
+    @Override
     public void login(String userName, String password) {
+        SPUtil.getInstance(Contacts.SP_NAME).put(Contacts.LOGIN_NAME, userName);
         ApiUtil.getInstance()
                 .getApiService()
                 .login(userName, Base64.encodeToString(password.getBytes(), Base64.NO_WRAP))
@@ -40,8 +54,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                         if (isViewAttached()) {
                             getView().showToast("登录成功");
                             getView().dismissLoading();
-                            // TODO: 2019/4/10 保存UserData finish
-
+                            UserData.getInstance().saveUser(bean.getData());
+                            getView().goMain();
                         }
                     }
 

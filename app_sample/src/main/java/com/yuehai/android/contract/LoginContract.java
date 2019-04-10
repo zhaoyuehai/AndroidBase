@@ -8,7 +8,16 @@ import library.base.IBaseView;
  */
 public interface LoginContract {
     interface View extends IBaseView {
+        /**
+         * 设置上次记住的登录名
+         * @param username 登录名
+         */
+        void initUserName(String username);
 
+        /**
+         * 进入主页
+         */
+        void goMain();
     }
 
     interface Presenter extends IBasePresenter {

@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.yuehai.android.R;
-import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.net.response.UserForListBean;
 import com.yuehai.android.widget.recyclerhelper.BaseViewHolder;
 
 import butterknife.BindView;
@@ -13,7 +13,7 @@ import butterknife.BindView;
 /**
  * Created by zhaoyuehai 2019/3/28
  */
-public class UserListViewHolder extends BaseViewHolder<UserBean> {
+public class UserListViewHolder extends BaseViewHolder<UserForListBean> {
     @BindView(R.id.name_tv)
     TextView nameTV;
     @BindView(R.id.email_tv)
@@ -30,7 +30,7 @@ public class UserListViewHolder extends BaseViewHolder<UserBean> {
     }
 
     @Override
-    public void setData(UserBean userBean) {
+    public void setData(UserForListBean userBean) {
         super.setData(userBean);
         nameTV.setText(String.format("姓名:%s", userBean.getUserName()));
         phoneTV.setText(String.format("手机:%s", userBean.getPhone()));

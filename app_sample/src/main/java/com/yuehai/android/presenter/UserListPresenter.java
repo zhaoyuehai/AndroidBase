@@ -5,7 +5,7 @@ import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.ApiUtil;
 import com.yuehai.android.net.ResultObserver;
 import com.yuehai.android.net.response.ResultBean;
-import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.net.response.UserForListBean;
 import com.yuehai.android.util.RxUtil;
 import com.yuehai.android.widget.TipDialogFragment;
 
@@ -51,10 +51,10 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                 .getApiService()
                 .getUsers(pageNum, 10)
                 .compose(RxUtil.io_main())
-                .subscribe(new ResultObserver<ResultBean<List<UserBean>>>(this) {
+                .subscribe(new ResultObserver<ResultBean<List<UserForListBean>>>(this) {
 
                     @Override
-                    public void onNext(ResultBean<List<UserBean>> listResultBean) {
+                    public void onNext(ResultBean<List<UserForListBean>> listResultBean) {
                         if (isViewAttached()) {
                             getView().showData(listResultBean, pageNum == 1);
                             if (listResultBean.getData().size() == 0 & pageNum > 1) pageNum--;
@@ -78,7 +78,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     }
 
     @Override
-    public void onLongClick(UserBean userBean) {
+    public void onLongClick(UserForListBean userBean) {
         if (isViewAttached()) {
             getView().alterConfirmDialog("确定要删除 " + userBean.getUserName() + " 吗？", new TipDialogFragment.OnClickListener() {
                 @Override
@@ -94,7 +94,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
         }
     }
 
-    private void delete(UserBean userBean) {
+    private void delete(UserForListBean userBean) {
         ApiUtil.getInstance()
                 .getApiService()
                 .deleteUser(userBean.getUserId())
