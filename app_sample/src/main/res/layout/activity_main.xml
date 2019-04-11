@@ -18,11 +18,24 @@
         tools:text="欢迎你，XXX" />
 
     <Button
+        android:id="@+id/test_btn0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/blue"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <Button
         android:id="@+id/test_btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="@string/exit_login" />
+        android:background="@color/red"
+        android:text="@string/exit_login"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/test_btn2"

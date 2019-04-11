@@ -1,53 +1,41 @@
 package com.yuehai.android.util;
 
 
-import com.orhanobut.logger.Logger;
+import android.util.Log;
+
 import com.yuehai.android.BuildConfig;
+import com.yuehai.android.Contacts;
 
 
 /**
- * Created by twan on 2016/8/3.
+ * LogUtil
  */
 public class LogUtil {
 
-    public static boolean isDebug = BuildConfig.DEBUG;
-    private static final String TAG = "TAG";
+    private static boolean isDebug = BuildConfig.DEBUG;
+    private static final String TAG = Contacts.LOG_TAG;
 
-    public static void e(String tag, Object o) {
+    public static void e(String msg) {
         if (isDebug) {
-            Logger.e(tag, o);
+            Log.e(TAG, msg);
         }
     }
 
-    public static void e(Object o) {
-        LogUtil.e(TAG, o);
-    }
-
-    public static void w(String tag, Object o) {
+    public static void w(String msg) {
         if (isDebug) {
-            Logger.w(tag, o);
-        }
-    }
-
-    public static void w(Object o) {
-        LogUtil.w(TAG, o);
-    }
-
-    public static void d(String msg) {
-        if (isDebug) {
-            Logger.d(msg);
+            Log.w(TAG, msg);
         }
     }
 
     public static void i(String msg) {
         if (isDebug) {
-            Logger.i(msg);
+            Log.i(TAG, msg);
         }
     }
 
-    public static void wtf(String msg) {
+    public static void d(String msg) {
         if (isDebug) {
-            Logger.wtf(msg);
+            Log.d(TAG, msg);
         }
     }
 }

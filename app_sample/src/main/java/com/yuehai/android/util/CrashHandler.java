@@ -36,9 +36,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         System.out.println(ex.toString());
-        LogUtil.e(TAG, ex.toString());
-        LogUtil.e(TAG, collectCrashDeviceInfo());
-        LogUtil.e(TAG, getCrashInfo(ex));
+        LogUtil.e(ex.toString());
+        LogUtil.e(collectCrashDeviceInfo());
+        LogUtil.e(getCrashInfo(ex));
         // 调用系统错误机制
         defaultHandler.uncaughtException(thread, ex);
         BaseApplication.getInstance().exitApp();

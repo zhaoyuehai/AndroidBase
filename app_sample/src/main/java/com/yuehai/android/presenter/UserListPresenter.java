@@ -67,6 +67,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                             getView().showData(null, pageNum == 1);
                             if (pageNum > 1) pageNum--;
                             getView().dismissLoading();
+                            getView().showToast(e.getMessage());
                         }
                     }
 
@@ -97,7 +98,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     private void delete(UserForListBean userBean) {
         ApiUtil.getInstance()
                 .getApiService()
-                .deleteUser(userBean.getUserId())
+                .deleteUser(userBean.getId())
                 .compose(RxUtil.io_main())
                 .subscribe(new ResultObserver<ResultBean<String>>(this) {
                     @Override

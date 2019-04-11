@@ -7,4 +7,5 @@ public interface Contacts {
     String SP_NAME = "AppSample";
     String SP_IP_ADDRESS = "IP_Address";
     String LOGIN_NAME = "LOGIN_NAME";
+    String LOG_TAG = "AppSample";
 }

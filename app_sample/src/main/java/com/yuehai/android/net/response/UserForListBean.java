@@ -10,7 +10,7 @@ public class UserForListBean {
     private String phone;
     private String email;
     private String nickName;
-    private long userId;
+    private long id;
 
     public String getUserName() {
         return userName;
@@ -60,11 +60,11 @@ public class UserForListBean {
         this.nickName = nickName;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 }

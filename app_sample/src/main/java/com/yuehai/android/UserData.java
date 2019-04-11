@@ -1,13 +1,18 @@
 package com.yuehai.android;
 
 import com.yuehai.android.net.response.UserBean;
+import com.yuehai.android.util.LogUtil;
 import com.yuehai.android.util.SPUtil;
+
+import java.util.Date;
 
 public class UserData {
     private static String IS_LOGIN = "SP_IS_LOGIN";
 
     private static String TOKEN = "SP_USER_TOKEN";
+    private static String REFRESH_TOKEN = "SP_USER_REFRESH_TOKEN";
     private static String TOKEN_HEADER = "SP_USER_TOKEN_HEADER";
+    private static String EXPIRATION = "SP_USER_EXPIRATION";
     private static String USER_NAME = "SP_USER_USER_NAME";
     private static String NICK_NAME = "SP_USER_NICK_NAME";
     private static String PHONE = "SP_USER_PHONE";
@@ -37,7 +42,9 @@ public class UserData {
             if (isLogin) {
                 user = new UserBean();
                 user.setToken(spUtil.getString(TOKEN));
+                user.setRefreshToken(spUtil.getString(REFRESH_TOKEN));
                 user.setTokenHeader(spUtil.getString(TOKEN_HEADER));
+                user.setExpiration(spUtil.getLong(EXPIRATION));
                 user.setUserName(spUtil.getString(USER_NAME));
                 user.setNickName(spUtil.getString(NICK_NAME));
                 user.setPhone(spUtil.getString(PHONE));
@@ -51,10 +58,14 @@ public class UserData {
     }
 
     public void saveUser(UserBean userBean) {
+        this.user = userBean;
+        LogUtil.e("======保存的过期时间是：" + new Date(user.getExpiration()));
         SPUtil spUtil = SPUtil.getInstance(Contacts.SP_NAME);
         spUtil.put(IS_LOGIN, true);
         spUtil.put(TOKEN, userBean.getToken());
+        spUtil.put(REFRESH_TOKEN, userBean.getRefreshToken());
         spUtil.put(TOKEN_HEADER, userBean.getTokenHeader());
+        spUtil.put(EXPIRATION, userBean.getExpiration());
         spUtil.put(USER_NAME, userBean.getUserName());
         spUtil.put(NICK_NAME, userBean.getNickName());
         spUtil.put(PHONE, userBean.getPhone());
@@ -62,7 +73,6 @@ public class UserData {
         spUtil.put(AVATAR, userBean.getAvatar());
         spUtil.put(STATUS, userBean.getStatus());
         spUtil.put(USER_ID, userBean.getUserId());
-        this.user = userBean;
     }
 
     public void clearUser() {

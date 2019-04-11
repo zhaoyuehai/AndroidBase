@@ -28,7 +28,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     protected void onCreate() {
         super.onCreate();
         String username = SPUtil.getInstance(Contacts.SP_NAME).getString(Contacts.LOGIN_NAME);
-        if(isViewAttached()&&!TextUtils.isEmpty(username)){
+        if (isViewAttached() && !TextUtils.isEmpty(username)) {
             getView().initUserName(username);
         }
     }
@@ -52,10 +52,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                     @Override
                     public void onNext(ResultBean<UserBean> bean) {
                         if (isViewAttached()) {
-                            getView().showToast("登录成功");
                             getView().dismissLoading();
-                            UserData.getInstance().saveUser(bean.getData());
-                            getView().goMain();
+                            getView().showToast(bean.getMessage());
+                            if (bean.getCode().equals("10000")) {
+                                UserData.getInstance().saveUser(bean.getData());
+                                getView().onLoginSuccess();
+                            }
                         }
                     }
 

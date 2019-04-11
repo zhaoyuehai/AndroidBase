@@ -20,7 +20,7 @@ public interface SplashContract {
         /**
          * 去主界面/登录页
          */
-        void goNextPage(Class<? extends BaseActivity> activity);
+        void goMain();
     }
 
     interface Presenter extends IBasePresenter , InputDialogFragment.OnClickListener {

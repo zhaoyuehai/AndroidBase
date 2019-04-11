@@ -34,8 +34,8 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.Presenter> im
     }
 
     @Override
-    public void goNextPage(Class<? extends BaseActivity> activity) {
-        startActivity(new Intent(this, activity));
+    public void goMain() {
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
     private InputDialogFragment inputDialogFragment;

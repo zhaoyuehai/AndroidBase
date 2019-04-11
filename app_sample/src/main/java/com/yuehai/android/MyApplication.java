@@ -1,5 +1,7 @@
 package com.yuehai.android;
 
+import com.yuehai.android.net.ApiUtil;
+
 import library.base.BaseApplication;
 
 /**
@@ -8,4 +10,14 @@ import library.base.BaseApplication;
 public class MyApplication extends BaseApplication {
 
     public static String BASE_URL;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    public static void clearUser() {
+        ApiUtil.getInstance().cancelAll();
+        UserData.getInstance().clearUser();
+    }
 }

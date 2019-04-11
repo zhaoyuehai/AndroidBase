@@ -45,8 +45,8 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
     }
 
     @Override
-    public void goMain() {
-        startActivity(new Intent(this, MainActivity.class));
+    public void onLoginSuccess() {
+        setResult(RESULT_OK);
         finish();
     }
 

@@ -5,7 +5,9 @@ package com.yuehai.android.net.response;
  */
 public class UserBean {
     private String token;
+    private String refreshToken;
     private String tokenHeader;
+    private long expiration;
     private String userName;
     private int status;
     private String avatar;
@@ -13,7 +15,6 @@ public class UserBean {
     private String email;
     private String nickName;
     private long userId;
-
 
     public String getToken() {
         return token;
@@ -23,12 +24,28 @@ public class UserBean {
         this.token = token;
     }
 
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     public String getTokenHeader() {
         return tokenHeader;
     }
 
     public void setTokenHeader(String tokenHeader) {
         this.tokenHeader = tokenHeader;
+    }
+
+    public long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(long expiration) {
+        this.expiration = expiration;
     }
 
     public String getUserName() {

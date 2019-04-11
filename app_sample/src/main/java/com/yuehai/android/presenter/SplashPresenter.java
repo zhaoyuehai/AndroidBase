@@ -3,11 +3,8 @@ package com.yuehai.android.presenter;
 import com.yuehai.android.BuildConfig;
 import com.yuehai.android.Contacts;
 import com.yuehai.android.MyApplication;
-import com.yuehai.android.UserData;
 import com.yuehai.android.contract.SplashContract;
 import com.yuehai.android.net.ResultObserver;
-import com.yuehai.android.ui.LoginActivity;
-import com.yuehai.android.ui.MainActivity;
 import com.yuehai.android.util.NetUtil;
 import com.yuehai.android.util.SPUtil;
 
@@ -67,7 +64,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
                             getView().dismissLoading();
                             if (isSuccess) {
                                 ToastUtil.showToast("连接成功");
-                                doNext();
+                                getView().goMain();
                             } else {
                                 getView().showInputDialog();
                                 ToastUtil.showToast("连接失败");
@@ -99,20 +96,13 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
                 });
     }
 
-    private void doNext() {
-        if (UserData.getInstance().getUser() != null) {
-            getView().goNextPage(MainActivity.class);
-        } else {
-            getView().goNextPage(LoginActivity.class);
-        }
-    }
 
     @Override
     public void onCancel() {
         if (isViewAttached()) {
             if (MyApplication.BASE_URL == null)
                 MyApplication.BASE_URL = BuildConfig.BASE_URL;
-            doNext();
+            getView().goMain();
         }
     }
 
@@ -124,7 +114,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(aLong -> {
 //                    if (isViewAttached()) {
-//                        doNext();
+//                        getView().onLoginSuccess();
 //                    }
 //                }));
         if (isViewAttached()) getView().showInputDialog();
