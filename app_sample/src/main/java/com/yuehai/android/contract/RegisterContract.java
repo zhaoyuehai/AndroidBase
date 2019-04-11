@@ -9,12 +9,20 @@ import library.base.IBaseView;
  */
 public interface RegisterContract {
     interface View extends IBaseView {
-
-        void finish();
+        /**
+         * 注册成功
+         */
+        void onRegisterSuccess(String username);
     }
 
     interface Presenter extends IBasePresenter {
-
+        /**
+         * 注册
+         *
+         * @param userName 用户名
+         * @param password 密码
+         * @param phone    手机号
+         */
         void onRegister(String userName, String password, String phone);
     }
 }

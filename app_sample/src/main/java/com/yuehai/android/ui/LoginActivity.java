@@ -9,6 +9,7 @@ import com.yuehai.android.R;
 import com.yuehai.android.contract.LoginContract;
 import com.yuehai.android.presenter.LoginPresenter;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import library.base.BaseMvpActivity;
@@ -41,7 +42,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
     @Override
     public void initUserName(String username) {
         userNameEt.setText(username);
-        userNameEt.setSelection(username.length());
+        passwordEt.requestFocus();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
                 startActivity(new Intent(this, SetPwdActivity.class));
                 break;
             case R.id.register_go_tv:
-                startActivity(new Intent(this, RegisterActivity.class));
+                startActivityForResult(new Intent(this, RegisterActivity.class), 2000);
                 break;
             case R.id.login_btn:
                 String userName = userNameEt.getText().toString().trim();
@@ -77,4 +78,17 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.Presenter> impl
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2000 && resultCode == RESULT_OK) {
+            if (data != null) {
+                String username = data.getStringExtra("username");
+                if (username != null) {
+                    userNameEt.setText(username);
+                    passwordEt.requestFocus();
+                }
+            }
+        }
+    }
 }

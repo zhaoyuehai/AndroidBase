@@ -1,6 +1,6 @@
 package com.yuehai.android.net;
 
-import com.yuehai.android.net.request.RegisterUserBen;
+import com.yuehai.android.net.request.RegisterUserBean;
 import com.yuehai.android.net.response.ResultBean;
 import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.net.response.UserForListBean;
@@ -39,8 +39,8 @@ public interface ApiService {
      * 注册
      */
     @Headers(TokenInterceptor.HEADER_NO_TOKEN)
-    @POST("user")
-    Observable<ResultBean<String>> register(@Body RegisterUserBen body);
+    @POST("register")
+    Observable<ResultBean<Object>> register(@Body RegisterUserBean body);
 
     /**
      * 刷新token接口（同步请求，在拦截器内执行）
