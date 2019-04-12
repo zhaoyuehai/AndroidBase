@@ -63,5 +63,5 @@ public interface ApiService {
      * 删除用户
      */
     @DELETE("user/{id}")
-    Observable<ResultBean<String>> deleteUser(@Path("id") Long id);
+    Observable<ResultBean<Object>> deleteUser(@Path("id") Long id);
 }

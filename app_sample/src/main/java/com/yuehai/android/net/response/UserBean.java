@@ -8,6 +8,7 @@ public class UserBean {
     private String refreshToken;
     private String tokenHeader;
     private long expiration;
+    private int roleCode;
     private String userName;
     private int status;
     private String avatar;
@@ -46,6 +47,14 @@ public class UserBean {
 
     public void setExpiration(long expiration) {
         this.expiration = expiration;
+    }
+
+    public int getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(int roleCode) {
+        this.roleCode = roleCode;
     }
 
     public String getUserName() {

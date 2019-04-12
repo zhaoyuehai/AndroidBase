@@ -3,6 +3,7 @@ package com.yuehai.android.net;
 import android.util.Log;
 
 import com.yuehai.android.MyApplication;
+import com.yuehai.android.util.LogUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -23,7 +24,7 @@ public class ApiUtil {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> {
             try {
                 String text = URLDecoder.decode(message, "utf-8");
-                Log.i("ApiUtil---", text);
+                LogUtil.i("ApiUtil---", text);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 Log.i("ApiUtil---", message);
@@ -31,9 +32,9 @@ public class ApiUtil {
         });
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(logInterceptor)
                 .addInterceptor(new TokenInterceptor())
                 .build();

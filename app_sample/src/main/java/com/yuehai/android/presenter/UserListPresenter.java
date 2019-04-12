@@ -100,7 +100,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                 .getApiService()
                 .deleteUser(userBean.getId())
                 .compose(RxUtil.io_main())
-                .subscribe(new ResultObserver<ResultBean<String>>(this) {
+                .subscribe(new ResultObserver<ResultBean<Object>>(this) {
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
@@ -108,12 +108,11 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                     }
 
                     @Override
-                    public void onNext(ResultBean<String> stringResultBean) {
+                    public void onNext(ResultBean<Object> stringResultBean) {
                         if (isViewAttached()) {
-                            if (stringResultBean.getData().equals("1")) {
+                            getView().showToast(stringResultBean.getMessage());
+                            if (stringResultBean.getCode().equals("10000")) {
                                 getView().onDeleteSuccess(userBean);
-                            } else {
-                                getView().showToast("删除失败");
                             }
                         }
                     }
@@ -123,7 +122,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                         super.onError(e);
                         if (isViewAttached()) {
                             getView().dismissLoading();
-                            getView().showToast("删除失败");
+                            getView().showToast(e.getMessage());
                         }
                     }
 

@@ -1,12 +1,14 @@
 package com.yuehai.android.ui;
 
+import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.UserListContract;
 import com.yuehai.android.net.response.ResultBean;
-import com.yuehai.android.net.response.UserBean;
 import com.yuehai.android.net.response.UserForListBean;
 import com.yuehai.android.presenter.UserListPresenter;
 import com.yuehai.android.ui.adapter.UserListViewHolder;
@@ -66,6 +68,30 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_user_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                startActivityForResult(new Intent(this, RegisterActivity.class), 3000);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==3000&&resultCode==RESULT_OK){
+            presenter.onRefresh(smartRL);
+        }
     }
 
     @Override

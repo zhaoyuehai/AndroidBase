@@ -8,51 +8,51 @@
 
     <TextView
         android:id="@+id/test_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@color/blue"
+        android:gravity="center_horizontal"
         android:padding="10dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textColor="@color/text_blue"
+        android:textSize="14sp"
         tools:text="欢迎你，XXX" />
 
     <Button
         android:id="@+id/test_btn0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginTop="20dp"
         android:background="@color/blue"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/test_btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/red"
-        android:text="@string/exit_login"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
 
     <Button
         android:id="@+id/test_btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginTop="20dp"
         android:text="@string/user_list" />
 
     <Button
         android:id="@+id/test_btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:layout_marginTop="5dp" />
 
     <Button
         android:id="@+id/test_btn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/test_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/red"
+        android:text="@string/exit_login"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>

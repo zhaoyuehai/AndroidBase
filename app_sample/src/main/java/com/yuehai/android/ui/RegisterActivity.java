@@ -48,8 +48,8 @@ public class RegisterActivity extends BaseMvpActivity<RegisterContract.Presenter
             case R.id.register_btn:
                 //添加用户
                 if (TextUtils.isEmpty(editText0.getText().toString().trim())) {
-                    editText1.setError("请输入手机号");
-                    editText1.requestFocus();
+                    editText0.setError("请输入手机号");
+                    editText0.requestFocus();
                     return;
                 }
                 if (TextUtils.isEmpty(editText1.getText().toString().trim())) {

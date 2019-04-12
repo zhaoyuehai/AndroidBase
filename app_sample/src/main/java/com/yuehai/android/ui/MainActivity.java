@@ -24,7 +24,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.test_tv)
     TextView testTV;
     @BindView(R.id.test_btn0)
-    Button test0; @BindView(R.id.test_btn1)
+    Button test0;
+    @BindView(R.id.test_btn1)
     Button test1;
     @BindView(R.id.test_btn3)
     Button test3;
@@ -60,7 +61,7 @@ public class MainActivity extends BaseActivity {
             test0.setVisibility(View.GONE);
             test1.setVisibility(View.VISIBLE);
             testTV.setVisibility(View.VISIBLE);
-            testTV.setText(String.format("当前用户：%s", user.getUserName()));
+            testTV.setText(String.format("当前用户：%s【角色：%s】", user.getUserName(), UserData.getRoleNameByCode(user.getRoleCode())));
         } else {
             test0.setVisibility(View.VISIBLE);
             test1.setVisibility(View.GONE);
