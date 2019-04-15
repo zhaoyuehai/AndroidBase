@@ -78,12 +78,12 @@ public class TokenInterceptor implements Interceptor {
                 if (resultBean != null && resultBean.getCode().equals("10000") && resultBean.getData() != null) {
                     LogUtil.e("======刷新token成功");
                     UserData.getInstance().saveUser(resultBean.getData());
-                    token = UserData.getInstance().getUser().getTokenHeader() + UserData.getInstance().getUser().getToken();
+                    token = UserData.getInstance().getUser().getTokenHeader() + UserData.getInstance().getUser().getAccessToken();
                 }
             }
         } else {
             LogUtil.i("======token未过期");
-            token = UserData.getInstance().getUser().getTokenHeader() + UserData.getInstance().getUser().getToken();
+            token = UserData.getInstance().getUser().getTokenHeader() + UserData.getInstance().getUser().getAccessToken();
         }
         return token;
     }

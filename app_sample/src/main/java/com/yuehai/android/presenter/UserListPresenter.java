@@ -110,8 +110,9 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                     @Override
                     public void onNext(ResultBean<Object> stringResultBean) {
                         if (isViewAttached()) {
+                            getView().dismissLoading();
                             getView().showToast(stringResultBean.getMessage());
-                            if (stringResultBean.getCode().equals("10000")) {
+                            if (stringResultBean.isSuccess()) {
                                 getView().onDeleteSuccess(userBean);
                             }
                         }
@@ -125,13 +126,6 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                             getView().showToast(e.getMessage());
                         }
                     }
-
-                    @Override
-                    public void onComplete() {
-                        super.onComplete();
-                        if (isViewAttached()) getView().dismissLoading();
-                    }
                 });
-
     }
 }

@@ -40,7 +40,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                         if (isViewAttached()) {
                             getView().showToast(result.getMessage());
                             getView().dismissLoading();
-                            if (result.getCode().equals("10000")) {
+                            if (result.isSuccess()) {
                                 getView().onRegisterSuccess(userName);
                             }
                         }

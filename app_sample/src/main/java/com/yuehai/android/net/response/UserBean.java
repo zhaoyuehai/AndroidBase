@@ -4,25 +4,23 @@ package com.yuehai.android.net.response;
  * Created by zhaoyuehai 2019/3/28
  */
 public class UserBean {
-    private String token;
+    private String accessToken;
     private String refreshToken;
     private String tokenHeader;
     private long expiration;
-    private int roleCode;
     private String userName;
     private int status;
     private String avatar;
     private String phone;
     private String email;
     private String nickName;
-    private long userId;
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String token) {
+        this.accessToken = token;
     }
 
     public String getRefreshToken() {
@@ -47,14 +45,6 @@ public class UserBean {
 
     public void setExpiration(long expiration) {
         this.expiration = expiration;
-    }
-
-    public int getRoleCode() {
-        return roleCode;
-    }
-
-    public void setRoleCode(int roleCode) {
-        this.roleCode = roleCode;
     }
 
     public String getUserName() {
@@ -103,13 +93,5 @@ public class UserBean {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 }

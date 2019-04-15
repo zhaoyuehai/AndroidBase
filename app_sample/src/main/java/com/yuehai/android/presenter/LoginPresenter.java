@@ -54,7 +54,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                         if (isViewAttached()) {
                             getView().dismissLoading();
                             getView().showToast(bean.getMessage());
-                            if (bean.getCode().equals("10000")) {
+                            if (bean.isSuccess()) {
                                 UserData.getInstance().saveUser(bean.getData());
                                 getView().onLoginSuccess();
                             }
@@ -65,12 +65,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                     public void onError(Throwable e) {
                         super.onError(e);
                         if (isViewAttached()) {
-                            getView().showToast("登录失败");
                             getView().dismissLoading();
+                            getView().showToast(e.getMessage());
                         }
                     }
 
                 });
-
     }
 }

@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
             test0.setVisibility(View.GONE);
             test1.setVisibility(View.VISIBLE);
             testTV.setVisibility(View.VISIBLE);
-            testTV.setText(String.format("当前用户：%s【角色：%s】", user.getUserName(), UserData.getRoleNameByCode(user.getRoleCode())));
+            testTV.setText(String.format("当前用户：%s", user.getUserName()));
         } else {
             test0.setVisibility(View.VISIBLE);
             test1.setVisibility(View.GONE);
