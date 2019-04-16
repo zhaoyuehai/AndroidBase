@@ -32,14 +32,14 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @Headers(TokenInterceptor.HEADER_NO_TOKEN)
-    @POST("login")
+    @POST("api/v1/login")
     Observable<ResultBean<UserBean>> login(@Field("username") String userName, @Field("password") String password);
 
     /**
      * 注册
      */
     @Headers(TokenInterceptor.HEADER_NO_TOKEN)
-    @POST("register")
+    @POST("api/v1/register")
     Observable<ResultBean<Object>> register(@Body RegisterUserBean body);
 
     /**
@@ -49,19 +49,19 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @Headers(TokenInterceptor.HEADER_NO_TOKEN)
-    @POST("token")
+    @POST("api/v1/token")
     Call<ResultBean<UserBean>> refreshToken(@Field("refreshToken") String refreshToken);
 
     /**
      * 分页加载用户列表
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)//可以省略此header
-    @GET("users")
+    @GET("api/v1/users")
     Observable<ResultBean<List<UserForListBean>>> getUsers(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     /**
      * 删除用户
      */
-    @DELETE("user/{id}")
+    @DELETE("api/v1/user/{id}")
     Observable<ResultBean<Object>> deleteUser(@Path("id") Long id);
 }

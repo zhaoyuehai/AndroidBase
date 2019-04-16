@@ -56,25 +56,31 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                     @Override
                     public void onNext(ResultBean<List<UserForListBean>> listResultBean) {
                         if (isViewAttached()) {
-                            getView().showData(listResultBean, pageNum == 1);
-                            if (listResultBean.getData().size() == 0 & pageNum > 1) pageNum--;
+                            getView().dismissLoading();
+                            if (listResultBean.isSuccess()) {
+                                getView().showData(listResultBean, pageNum == 1);
+                                if (listResultBean.getData().size() == 0 & pageNum > 1)
+                                    pageNum--;
+                            } else {
+                                loadFail(listResultBean.getMessage());
+                            }
                         }
+                    }
+
+                    private void loadFail(String msg) {
+                        getView().showToast(msg);
+                        getView().showData(null, pageNum == 1);
+                        if (pageNum > 1) pageNum--;
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (isViewAttached()) {
-                            getView().showData(null, pageNum == 1);
-                            if (pageNum > 1) pageNum--;
                             getView().dismissLoading();
-                            getView().showToast(e.getMessage());
+                            loadFail(e.getMessage());
                         }
                     }
 
-                    @Override
-                    public void onComplete() {
-                        if (isViewAttached()) getView().dismissLoading();
-                    }
                 });
     }
 
