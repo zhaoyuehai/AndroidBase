@@ -8,12 +8,13 @@ public class UserBean {
     private String refreshToken;
     private String tokenHeader;
     private long expiration;
+
     private String userName;
-    private int status;
-    private String avatar;
+    private String nickName;
     private String phone;
     private String email;
-    private String nickName;
+    private String avatar;
+    private int status;
 
     public String getAccessToken() {
         return accessToken;

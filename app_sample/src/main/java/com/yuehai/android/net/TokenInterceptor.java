@@ -49,8 +49,6 @@ public class TokenInterceptor implements Interceptor {
         if (response.code() == 401) {//token失效
             clearAndLogin();
             throw new ApiException(401, "需要重新登录");
-        } else if (response.code() == 403) {
-            throw new ApiException(403, "没有权限");
         }
         return response;
     }

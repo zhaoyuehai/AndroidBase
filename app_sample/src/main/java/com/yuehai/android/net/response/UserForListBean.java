@@ -1,16 +1,20 @@
 package com.yuehai.android.net.response;
 
+import java.util.Date;
+
 /**
  * Created by zhaoyuehai 2019/3/28
  */
 public class UserForListBean {
+    private long id;
     private String userName;
-    private int status;
-    private String avatar;
     private String phone;
     private String email;
     private String nickName;
-    private long id;
+    private String avatar;
+    private int status;
+    private Date createTime;
+    private Date updateTime;
 
     public String getUserName() {
         return userName;
@@ -66,5 +70,21 @@ public class UserForListBean {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
