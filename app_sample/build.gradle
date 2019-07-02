@@ -3,41 +3,14 @@ apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.yuehai.android"
+        applicationId 'com.yuehai.android'
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        flavorDimensions 'environment', "company"
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-            jni.srcDirs = []
-        }
-    }
-    signingConfigs {
-        yuehai {
-            keyAlias 'key'
-            keyPassword '123456'
-            storeFile file('app_sample.jks')
-            storePassword '123456'
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled true//混淆是否开启
-            shrinkResources true
-            zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.yuehai
-        }
-        debug {
-            minifyEnabled false
-            signingConfig signingConfigs.yuehai
-        }
-    }
+    flavorDimensions 'environment', 'company'
     productFlavors {
         environmentDev {
             dimension 'environment'
@@ -58,6 +31,33 @@ android {
         companyC {
             dimension 'company'
             buildConfigField 'String', 'COMPANY_NAME', '"阿里巴巴"'
+        }
+    }
+    signingConfigs {
+        app_sample {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('app_sample.jks')
+            storePassword '123456'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            // app_sample-版本名称-渠道名-编译时间.apk
+            outputFileName = "app_sample-v${defaultConfig.versionName}-${buildTime()}.apk"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true//混淆是否开启
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.app_sample
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.app_sample
         }
     }
     compileOptions {
@@ -82,4 +82,10 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-4'
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+}
+
+static def buildTime() {
+    return new Date().format('yyyyMMddHHmm')
 }
