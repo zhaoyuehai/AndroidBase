@@ -14,6 +14,9 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.zhy.changeskin.SkinManager;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -122,6 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SkinManager.getInstance().register(this);
         if (getContentViewId() != -1) {//自主实现布局
             setContentView(getContentViewId());
             unbinder = ButterKnife.bind(this);
@@ -177,6 +181,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        SkinManager.getInstance().unregister(this);
         super.onDestroy();
         if (unbinder != null && unbinder != Unbinder.EMPTY) unbinder.unbind();
     }

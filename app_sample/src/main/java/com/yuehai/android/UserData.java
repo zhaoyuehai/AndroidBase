@@ -58,31 +58,35 @@ public class UserData {
     public void saveUser(UserBean userBean) {
         this.user = userBean;
         LogUtil.e("======保存的过期时间是：" + new Date(user.getExpiration()));
-        SPUtil spUtil = SPUtil.getInstance(Contacts.SP_NAME);
-        spUtil.put(IS_LOGIN, true);
-        spUtil.put(TOKEN, userBean.getAccessToken());
-        spUtil.put(REFRESH_TOKEN, userBean.getRefreshToken());
-        spUtil.put(TOKEN_HEADER, userBean.getTokenHeader());
-        spUtil.put(EXPIRATION, userBean.getExpiration());
-        spUtil.put(USER_NAME, userBean.getUserName());
-        spUtil.put(NICK_NAME, userBean.getNickName());
-        spUtil.put(PHONE, userBean.getPhone());
-        spUtil.put(EMAIL, userBean.getEmail());
-        spUtil.put(AVATAR, userBean.getAvatar());
-        spUtil.put(STATUS, userBean.getStatus());
+        SPUtil.getInstance(Contacts.SP_NAME)
+                .getEdit()
+                .putBoolean(IS_LOGIN, true)
+                .putString(TOKEN, userBean.getAccessToken())
+                .putString(REFRESH_TOKEN, userBean.getRefreshToken())
+                .putString(TOKEN_HEADER, userBean.getTokenHeader())
+                .putLong(EXPIRATION, userBean.getExpiration())
+                .putString(USER_NAME, userBean.getUserName())
+                .putString(NICK_NAME, userBean.getNickName())
+                .putString(PHONE, userBean.getPhone())
+                .putString(EMAIL, userBean.getEmail())
+                .putString(AVATAR, userBean.getAvatar())
+                .putInt(STATUS, userBean.getStatus())
+                .commit();
     }
 
     void clearUser() {
-        SPUtil spUtil = SPUtil.getInstance(Contacts.SP_NAME);
-        spUtil.put(IS_LOGIN, false);
-        spUtil.remove(TOKEN);
-        spUtil.remove(TOKEN_HEADER);
-        spUtil.remove(USER_NAME);
-        spUtil.remove(NICK_NAME);
-        spUtil.remove(PHONE);
-        spUtil.remove(EMAIL);
-        spUtil.remove(AVATAR);
-        spUtil.remove(STATUS);
+        SPUtil.getInstance(Contacts.SP_NAME)
+                .getEdit()
+                .putBoolean(IS_LOGIN, false)
+                .remove(TOKEN)
+                .remove(TOKEN_HEADER)
+                .remove(USER_NAME)
+                .remove(NICK_NAME)
+                .remove(PHONE)
+                .remove(EMAIL)
+                .remove(AVATAR)
+                .remove(STATUS)
+                .commit();
         this.user = null;
     }
 }

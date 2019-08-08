@@ -44,6 +44,6 @@ public interface UserListContract {
         /**
          * 弹框确认后删除
          */
-        void onLongClick(UserForListBean userBean);
+        void onDeleteClick(UserForListBean userBean);
     }
 }

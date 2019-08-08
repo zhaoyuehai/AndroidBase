@@ -85,7 +85,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     }
 
     @Override
-    public void onLongClick(UserForListBean userBean) {
+    public void onDeleteClick(UserForListBean userBean) {
         if (isViewAttached()) {
             getView().alterConfirmDialog("确定要删除 " + userBean.getUserName() + " 吗？", new TipDialogFragment.OnClickListener() {
                 @Override

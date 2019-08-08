@@ -1,10 +1,12 @@
 package com.yuehai.android.contract;
 
+import androidx.annotation.Nullable;
+
 import library.base.IBasePresenter;
 import library.base.IBaseView;
 
 /**
- * 用户注册
+ * 注册/修改用户
  * Created by zhaoyuehai 2019/3/22
  */
 public interface RegisterContract {
@@ -12,7 +14,12 @@ public interface RegisterContract {
         /**
          * 注册成功
          */
-        void onRegisterSuccess(String username);
+        void onRegisterSuccess(String username, Long userId);
+
+        /**
+         * 修改成功
+         */
+        void onModifySuccess();
     }
 
     interface Presenter extends IBasePresenter {
@@ -24,5 +31,10 @@ public interface RegisterContract {
          * @param phone    手机号
          */
         void onRegister(String userName, String password, String phone);
+
+        /**
+         * 修改用户
+         */
+        void onModifyUser(long id, String phone, @Nullable String email, @Nullable String nickName);
     }
 }

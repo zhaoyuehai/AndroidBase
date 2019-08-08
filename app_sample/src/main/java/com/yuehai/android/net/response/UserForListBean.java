@@ -16,6 +16,13 @@ public class UserForListBean {
     private Date createTime;
     private Date updateTime;
 
+    public UserForListBean(long id, String phone, String email, String nickName) {
+        this.id = id;
+        this.phone = phone;
+        this.email = email;
+        this.nickName = nickName;
+    }
+
     public String getUserName() {
         return userName;
     }

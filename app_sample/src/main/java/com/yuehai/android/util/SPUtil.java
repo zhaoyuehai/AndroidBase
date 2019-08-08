@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 
 /**
@@ -293,4 +294,7 @@ public class SPUtil {
         return true;
     }
 
+    public SharedPreferences.Editor getEdit() {
+        return sp.edit();
+    }
 }

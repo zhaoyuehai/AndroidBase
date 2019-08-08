@@ -5,6 +5,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuehai.android.R;
 import com.yuehai.android.contract.UserListContract;
@@ -19,10 +24,6 @@ import com.yuehai.android.widget.recyclerhelper.MyDividerItemDecoration;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import library.base.BaseMvpActivity;
 
@@ -30,7 +31,7 @@ import library.base.BaseMvpActivity;
  * 用户列表 V
  * Created by zhaoyuehai 2019/3/22
  */
-public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter> implements UserListContract.View {
+public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter> implements UserListContract.View, UserListViewHolder.OnEditClickListener {
 
     @BindView(R.id.smart_rl)
     protected SmartRefreshLayout smartRL;
@@ -62,13 +63,14 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
             @NonNull
             @Override
             public BaseViewHolder<UserForListBean> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new UserListViewHolder(parent, UserListActivity.this::onDeleteClick);
+                return new UserListViewHolder(parent, UserListActivity.this);
             }
         };
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_user_list, menu);
@@ -89,7 +91,7 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==3000&&resultCode==RESULT_OK){
+        if (requestCode == 3000 && resultCode == RESULT_OK) {
             presenter.onRefresh(smartRL);
         }
     }
@@ -132,9 +134,25 @@ public class UserListActivity extends BaseMvpActivity<UserListContract.Presenter
         adapter.remove(userBean);
     }
 
-    private void onDeleteClick(int position) {
+    @Override
+    public void onDeleteClick(int position) {
         if (adapter.getItemCount() > position) {
-            presenter.onLongClick(adapter.getItem(position));
+            presenter.onDeleteClick(adapter.getItem(position));
+        }
+    }
+
+    @Override
+    public void onModifyClick(int position) {
+        if (adapter.getItemCount() > position) {
+            UserForListBean item = adapter.getItem(position);
+            Intent intent = new Intent(this, RegisterActivity.class);
+            intent.putExtra("isModify", true);
+            intent.putExtra("id", item.getId());
+            intent.putExtra("userName", item.getUserName());
+            intent.putExtra("phone", item.getPhone());
+            intent.putExtra("email", item.getEmail());
+            intent.putExtra("nickName", item.getNickName());
+            startActivityForResult(intent, 3000);
         }
     }
 }

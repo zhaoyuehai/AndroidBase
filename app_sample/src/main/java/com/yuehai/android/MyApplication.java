@@ -1,6 +1,7 @@
 package com.yuehai.android;
 
 import com.yuehai.android.net.ApiUtil;
+import com.zhy.changeskin.SkinManager;
 
 import library.base.BaseApplication;
 
@@ -14,6 +15,7 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        SkinManager.getInstance().init(this);
     }
 
     public static void clearUser() {

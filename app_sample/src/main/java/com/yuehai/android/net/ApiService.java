@@ -16,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -36,13 +37,6 @@ public interface ApiService {
     Observable<ResultBean<UserBean>> login(@Field("username") String userName, @Field("password") String password);
 
     /**
-     * 注册
-     */
-    @Headers(TokenInterceptor.HEADER_NO_TOKEN)
-    @POST("api/v1/register")
-    Observable<ResultBean<Object>> register(@Body RegisterUserBean body);
-
-    /**
      * 刷新token接口（同步请求，在拦截器内执行）
      *
      * @return Call
@@ -53,15 +47,28 @@ public interface ApiService {
     Call<ResultBean<UserBean>> refreshToken(@Field("refreshToken") String refreshToken);
 
     /**
-     * 分页加载用户列表
+     * 注册
      */
-    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)//可以省略此header
-    @GET("api/v1/users")
-    Observable<ResultBean<List<UserForListBean>>> getUsers(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+    @Headers(TokenInterceptor.HEADER_NO_TOKEN)
+    @POST("api/v1/user")
+    Observable<ResultBean<Long>> register(@Body RegisterUserBean body);
 
     /**
      * 删除用户
      */
     @DELETE("api/v1/user/{id}")
     Observable<ResultBean<Object>> deleteUser(@Path("id") Long id);
+
+    /**
+     * 修改用户
+     */
+    @PUT("api/v1/user")
+    Observable<ResultBean<Object>> updateUser(@Body UserForListBean body);
+
+    /**
+     * 查询用户列表【分页】
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)//可以省略此header
+    @GET("api/v1/users")
+    Observable<ResultBean<List<UserForListBean>>> getUsers(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 }

@@ -20,4 +20,5 @@ dependencies {
     // RxJava
     api 'io.reactivex.rxjava2:rxjava:2.2.2'
     api 'com.jakewharton:butterknife:10.1.0'
+    api 'com.zhy:changeskin:4.0.2'
 }

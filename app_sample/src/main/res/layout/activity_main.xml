@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:tag="skin:white:background">
 
     <TextView
         android:id="@+id/test_tv"
@@ -12,6 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="10dp"
+        android:tag="skin:text_blue:textColor"
         android:textColor="@color/text_blue"
         android:textSize="14sp"
         tools:text="欢迎你，XXX" />
@@ -22,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/blue"
+        android:tag="skin:white:textColor|skin:blue:background"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="16sp" />
@@ -52,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@color/red"
+        android:tag="skin:white:textColor|skin:red:background"
         android:text="@string/exit_login"
         android:textColor="@color/white"
         android:textSize="16sp" />

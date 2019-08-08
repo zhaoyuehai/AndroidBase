@@ -44,7 +44,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             // app_sample-版本名称-渠道名-编译时间.apk
-            outputFileName = "app_sample-v${defaultConfig.versionName}-${buildTime()}.apk"
+            outputFileName = "app_sample-${variant.flavorName}-v${variant.versionName}-${new Date().format("yyyyMMddHHmm")}.apk"
         }
     }
     buildTypes {
@@ -84,8 +84,4 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-}
-
-static def buildTime() {
-    return new Date().format('yyyyMMddHHmm')
 }
